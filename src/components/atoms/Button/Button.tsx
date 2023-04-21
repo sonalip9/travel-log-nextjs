@@ -1,9 +1,17 @@
 import { Button, ButtonProps as NUIButtonProps } from '@nextui-org/react';
 
-export type ButtonProps = NUIButtonProps;
+import { Loading } from '@components/Loading';
 
-function ButtonComponent(props: ButtonProps) {
-  return <Button {...props} />;
+export type ButtonProps = NUIButtonProps & {
+  isLoading?: boolean;
+};
+
+function ButtonComponent({ isLoading, ...props }: ButtonProps) {
+  return (
+    <Button {...props}>
+      {isLoading ? <Loading color="currentColor" size="sm" type="default" /> : props.children}
+    </Button>
+  );
 }
 
 ButtonComponent.displayName = 'Button';

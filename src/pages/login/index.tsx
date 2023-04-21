@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 import { STATES } from './defs';
+import { useHandleLogin } from './hooks';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
@@ -9,8 +10,10 @@ import { TextInput } from '@components/TextInput';
 
 export default function Login() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
-  const GROUP = Object.values(STATES).map((key) => {
+  const group = Object.values(STATES).map((key) => {
     switch (key) {
       case STATES.SIGN_IN:
         return 'Sign In';
@@ -20,6 +23,8 @@ export default function Login() {
         return null;
     }
   });
+
+  const { handleLogin, isLoading } = useHandleLogin({ username: email, password, selectedIndex });
 
   return (
     <>
@@ -53,7 +58,7 @@ export default function Login() {
             display="inline-flex"
           >
             <Button.Group>
-              {GROUP.map((val, index) => (
+              {group.map((val, index) => (
                 <Button
                   key={val}
                   bordered={index === selectedIndex}
@@ -72,6 +77,8 @@ export default function Login() {
               label="Email"
               placeholder="Please enter your email address"
               type="email"
+              value={email}
+              onChange={({ target: { value } }) => setEmail(value)}
             />
 
             <TextInput.Password
@@ -81,9 +88,13 @@ export default function Login() {
               label="Password"
               placeholder="Please enter your password"
               type="password"
+              value={password}
+              onChange={({ target: { value } }) => setPassword(value)}
             />
 
-            <Button>{GROUP[selectedIndex]}</Button>
+            <Button isLoading={isLoading} onPress={handleLogin}>
+              {group[selectedIndex]}
+            </Button>
           </Container>
         </Container>
       </main>
