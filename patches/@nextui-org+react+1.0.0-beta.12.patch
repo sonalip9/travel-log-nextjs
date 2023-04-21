@@ -1,0 +1,120 @@
+diff --git a/node_modules/@nextui-org/react/types/button/button-group.d.ts b/node_modules/@nextui-org/react/types/button/button-group.d.ts
+index 0da41d9..b3a23b1 100644
+--- a/node_modules/@nextui-org/react/types/button/button-group.d.ts
++++ b/node_modules/@nextui-org/react/types/button/button-group.d.ts
+@@ -1,6 +1,6 @@
+ import React from "react";
+ import { CSS } from "../theme/stitches.config";
+-import { NormalSizes, NormalColors, NormalWeights } from "../utils/prop-types";
++import { NormalColors, NormalSizes, NormalWeights } from "../utils/prop-types";
+ import { ButtonGroupVariantsProps } from "./button-group.styles";
+ interface Props {
+     disabled?: boolean;
+@@ -19,9 +19,9 @@ interface Props {
+     children?: React.ReactNode;
+ }
+ declare const defaultProps: {
+-    borderWeight: "light" | "normal" | "bold" | "extrabold" | "black" | undefined;
+-    size: "xs" | "sm" | "md" | "lg" | "xl";
+-    color: "default" | "primary" | "secondary" | "success" | "warning" | "error" | "gradient";
++    borderWeight?: "light" | "normal" | "bold" | "extrabold" | "black" | undefined;
++    size?: "xs" | "sm" | "md" | "lg" | "xl";
++    color?: "default" | "primary" | "secondary" | "success" | "warning" | "error" | "gradient";
+ };
+ declare type NativeAttrs = Omit<React.HTMLAttributes<unknown>, keyof Props>;
+ export declare type ButtonGroupProps = Props & ButtonGroupVariantsProps & NativeAttrs & typeof defaultProps & {
+diff --git a/node_modules/@nextui-org/react/types/container/container.d.ts b/node_modules/@nextui-org/react/types/container/container.d.ts
+index 7f10c7f..4a3c923 100644
+--- a/node_modules/@nextui-org/react/types/container/container.d.ts
++++ b/node_modules/@nextui-org/react/types/container/container.d.ts
+@@ -21,17 +21,17 @@ interface Props {
+     children?: React.ReactNode;
+ }
+ declare const defaultProps: {
+-    gap: number;
+-    xs: boolean;
+-    sm: boolean;
+-    md: boolean;
+-    lg: boolean;
+-    xl: boolean;
+-    responsive: boolean;
+-    fluid: boolean;
+-    wrap: "nowrap" | "wrap" | "wrap-reverse";
+-    as: keyof JSX.IntrinsicElements;
+-    display: "flex" | "block" | "grid" | "inline" | "inline-block" | "inline-flex" | "inline-grid";
++    gap?: number;
++    xs?: boolean;
++    sm?: boolean;
++    md?: boolean;
++    lg?: boolean;
++    xl?: boolean;
++    responsive?: boolean;
++    fluid?: boolean;
++    wrap?: "nowrap" | "wrap" | "wrap-reverse";
++    as?: keyof JSX.IntrinsicElements;
++    display?: "flex" | "block" | "grid" | "inline" | "inline-block" | "inline-flex" | "inline-grid";
+ };
+ declare type NativeAttrs = Omit<React.HTMLAttributes<unknown>, keyof Props>;
+ export declare type ContainerProps = Props & typeof defaultProps & NativeAttrs;
+diff --git a/node_modules/@nextui-org/react/types/input/input-props.d.ts b/node_modules/@nextui-org/react/types/input/input-props.d.ts
+index 980576f..294d3f7 100644
+--- a/node_modules/@nextui-org/react/types/input/input-props.d.ts
++++ b/node_modules/@nextui-org/react/types/input/input-props.d.ts
+@@ -1,5 +1,5 @@
+ import React from "react";
+-import { NormalSizes, SimpleColors, ContentPosition, NormalWeights, AsProp } from "../utils/prop-types";
++import { AsProp, ContentPosition, NormalSizes, NormalWeights, SimpleColors } from "../utils/prop-types";
+ export declare type FormElement = HTMLInputElement | HTMLTextAreaElement;
+ export interface Props extends AsProp<"input" | "textarea">, React.HTMLAttributes<FormElement> {
+     value?: string | ReadonlyArray<string> | number;
+@@ -40,27 +40,27 @@ export interface Props extends AsProp<"input" | "textarea">, React.HTMLAttribute
+     autoComplete?: string;
+ }
+ export declare const defaultProps: {
+-    disabled: boolean;
+-    bordered: boolean;
+-    readOnly: boolean;
+-    clearable: boolean;
+-    rounded: boolean;
+-    animated: boolean;
+-    underlined: boolean;
+-    shadow: boolean;
+-    fullWidth: boolean;
+-    contentClickable: boolean;
+-    contentRightStyling: boolean;
+-    contentLeftStyling: boolean;
+-    required: boolean;
+-    width: string;
+-    size: "xs" | "sm" | "md" | "lg" | "xl";
+-    color: "default" | "primary" | "secondary" | "success" | "warning" | "error";
+-    helperColor: "default" | "primary" | "secondary" | "success" | "warning" | "error";
+-    status: "default" | "primary" | "secondary" | "success" | "warning" | "error";
+-    borderWeight: "light" | "normal" | "bold" | "extrabold" | "black";
+-    autoComplete: string;
+-    className: string;
+-    placeholder: string;
+-    initialValue: string;
++    disabled?: boolean;
++    bordered?: boolean;
++    readOnly?: boolean;
++    clearable?: boolean;
++    rounded?: boolean;
++    animated?: boolean;
++    underlined?: boolean;
++    shadow?: boolean;
++    fullWidth?: boolean;
++    contentClickable?: boolean;
++    contentRightStyling?: boolean;
++    contentLeftStyling?: boolean;
++    required?: boolean;
++    width?: string;
++    size?: "xs" | "sm" | "md" | "lg" | "xl";
++    color?: "default" | "primary" | "secondary" | "success" | "warning" | "error";
++    helperColor?: "default" | "primary" | "secondary" | "success" | "warning" | "error";
++    status?: "default" | "primary" | "secondary" | "success" | "warning" | "error";
++    borderWeight?: "light" | "normal" | "bold" | "extrabold" | "black";
++    autoComplete?: string;
++    className?: string;
++    placeholder?: string;
++    initialValue?: string;
+ };
