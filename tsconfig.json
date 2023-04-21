@@ -21,11 +21,12 @@
         "./src/components/molecules/*",
         "./src/components/organisms/*"
       ],
+      "@defs/*": ["./src/defs/*"],
       "@templates/*": ["./src/components/templates/*"],
       "@pages/*": ["./src/pages/*"],
-      "@hooks/*": ["./src/hooks/index.ts"],
-      "@utils/*": ["./src/utils/index.ts"],
-      "@types/*": ["./src/types/index.ts"],
+      "@hooks": ["./src/hooks/index.ts"],
+      "@utils": ["./src/utils/index.ts"],
+      "@types": ["./src/types/index.ts"],
       "@/*": ["./src/*"]
     }
   },
