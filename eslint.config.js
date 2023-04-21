@@ -111,7 +111,14 @@ module.exports = {
       {
         relativeDepth: 2,
         aliases: [
-          { alias: '@styles', matcher: './srs/styles' },
+          { alias: '@styles', matcher: './src/styles' },
+          { alias: '@components', matcher: './src/components' },
+          { alias: '@templates', matcher: './src/components/templates' },
+          { alias: '@pages', matcher: './src/pages' },
+          { alias: '@hooks', matcher: './src/hooks' },
+          { alias: '@utils', matcher: './src/utils' },
+          { alias: '@types', matcher: './src/types' },
+          { alias: '@defs', matcher: './src/defs' },
           { alias: '@', matcher: './src' },
         ],
       },
