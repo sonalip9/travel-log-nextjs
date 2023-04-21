@@ -27,6 +27,7 @@
       "@hooks": ["./src/hooks/index.ts"],
       "@utils": ["./src/utils/index.ts"],
       "@types": ["./src/types/index.ts"],
+      "@service/*": ["./src/service/*"],
       "@/*": ["./src/*"]
     }
   },

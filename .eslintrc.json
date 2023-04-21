@@ -120,6 +120,8 @@
           { "alias": "@hooks", "matcher": "./src/hooks/index.ts" },
           { "alias": "@utils", "matcher": "./src/utils/index.ts" },
           { "alias": "@types", "matcher": "./src/types/index.ts" },
+          { "alias": "@defs", "matcher": "./src/defs" },
+          { "alias": "@service", "matcher": "./src/service" },
           { "alias": "@", "matcher": "./src" }
         ]
       }
