@@ -16,6 +16,16 @@
     "incremental": true,
     "paths": {
       "@styles/*": ["./src/styles/*"],
+      "@components/*": [
+        "./src/components/atoms/*",
+        "./src/components/molecules/*",
+        "./src/components/organisms/*"
+      ],
+      "@templates/*": ["./src/components/templates/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@hooks/*": ["./src/hooks/index.ts"],
+      "@utils/*": ["./src/utils/index.ts"],
+      "@types/*": ["./src/types/index.ts"],
       "@/*": ["./src/*"]
     }
   },

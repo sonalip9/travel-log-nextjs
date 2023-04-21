@@ -65,11 +65,23 @@
     "react/jsx-curly-spacing": "error",
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".jsx"] }],
     "react/jsx-pascal-case": "error",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": true,
+        "ignoreCase": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true,
+        "shorthandFirst": true,
+        "shorthandLast": false
+      }
+    ],
     "react/jsx-tag-spacing": "error",
     "react/jsx-wrap-multilines": "warn",
     "react/no-array-index-key": "warn",
     "react/no-multi-comp": ["error", { "ignoreStateless": true }],
     "react/no-unescaped-entities": "off",
+    "react/self-closing-comp": "error",
     "react/style-prop-object": "off",
 
     // React Hooks Plugin - rules available via `eslint-plugin-react-hooks`.
@@ -85,14 +97,6 @@
     ],
 
     // Typescript Plugin - rules available via `@typescript-eslint`.
-    "@typescript-eslint/no-restricted-imports": [
-      "warn",
-      {
-        "name": "react-redux",
-        "importNames": ["useSelector", "useDispatch"],
-        "message": "Use typed hooks `useAppDispatch` and `useAppSelector` instead."
-      }
-    ],
     "@typescript-eslint/no-shadow": ["error"],
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": [
@@ -107,6 +111,15 @@
         "relativeDepth": 2,
         "aliases": [
           { "alias": "@styles", "matcher": "./srs/styles" },
+          { "alias": "@components", "matcher": "./src/components" },
+          { "alias": "@components", "matcher": "./src/components/atoms" },
+          { "alias": "@components", "matcher": "./src/components/molecules" },
+          { "alias": "@templates", "matcher": "./src/components/templates" },
+          { "alias": "@organisms", "matcher": "./src/components/organisms" },
+          { "alias": "@pages", "matcher": "./src/pages" },
+          { "alias": "@hooks", "matcher": "./src/hooks/index.ts" },
+          { "alias": "@utils", "matcher": "./src/utils/index.ts" },
+          { "alias": "@types", "matcher": "./src/types/index.ts" },
           { "alias": "@", "matcher": "./src" }
         ]
       }
