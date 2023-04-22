@@ -2,6 +2,8 @@ import axios, { AxiosError } from 'axios';
 import { getSession } from 'next-auth/react';
 
 import { LoginPayload, UserRes } from '@defs/auth';
+import { JournalsListRes } from '@defs/journals';
+
 const config = { baseURL: 'http://localhost:3001' };
 
 const api = axios.create(config);
@@ -53,3 +55,6 @@ export const signIn = (credentials: LoginPayload) => api.post<UserRes>('/auth/lo
 export const signUp = (credentials: LoginPayload) => api.post<UserRes>('/auth/signup', credentials);
 
 const refreshAuth = async () => authAPI.get<UserRes>('auth/refresh');
+
+//  ======== Journals API ========
+export const getAllJournals = async () => authAPI.get<JournalsListRes>('/journals/all');
