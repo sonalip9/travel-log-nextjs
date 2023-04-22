@@ -16,13 +16,13 @@
     "incremental": true,
     "paths": {
       "@styles/*": ["./src/styles/*"],
+      "@templates/*": ["./src/components/templates/*"],
       "@components/*": [
         "./src/components/atoms/*",
         "./src/components/molecules/*",
         "./src/components/organisms/*"
       ],
       "@defs/*": ["./src/defs/*"],
-      "@templates/*": ["./src/components/templates/*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks": ["./src/hooks/index.ts"],
       "@utils": ["./src/utils/index.ts"],
