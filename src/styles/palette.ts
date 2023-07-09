@@ -1,0 +1,171 @@
+const blue = {
+  blue0: '#000000',
+  blue10: '#001526',
+  blue20: '#002442',
+  blue30: '#00345E',
+  blue40: '#085CA1',
+  blue50: '#177BCC',
+  blue60: '#328ED9',
+  blue70: '#4CA0E5',
+  blue80: '#73B8F0',
+  blue90: '#ABD9FF',
+  blue95: '#D6EDFF',
+  blue99: '#F6FBFF',
+  blue100: '#FFFFFF',
+};
+
+const green = {
+  green0: '#000000',
+  green10: '#00450C',
+  green20: '#006E12',
+  green30: '#198F2D',
+  green40: '#36A849',
+  green50: '#51C364',
+  green60: '#5CD170',
+  green70: '#7DE884',
+  green80: '#9EFFAE',
+  green90: '#BFFFCA',
+  green95: '#D9FFDF',
+  green99: '#EDFFF0',
+  green100: '#FFFFFF',
+};
+
+const purple = {
+  purple0: '#000000',
+  purple10: '#170026',
+  purple20: '#280042',
+  purple30: '#3A0061',
+  purple40: '#6408A1',
+  purple50: '#8118C7',
+  purple60: '#902ED1',
+  purple70: '#9E42DB',
+  purple80: '#BC6EF0',
+  purple90: '#DBA6FF',
+  purple95: '#EED4FF',
+  purple99: '#FAF2FF',
+  purple100: '#FFFFFF',
+};
+
+const red = {
+  red0: '#000000',
+  red10: '#410000',
+  red20: '#690000',
+  red30: '#930000',
+  red40: '#BA1A1A',
+  red50: '#E11919',
+  red60: '#FF4949',
+  red70: '#FF897D',
+  red80: '#FFB4AB',
+  red90: '#FFDAD5',
+  red95: '#FFEDEA',
+  red99: '#FFF5F5',
+  red100: '#FFFFFF',
+};
+
+const gray = {
+  gray0: '#000000',
+  gray10: '#191C1D',
+  gray20: '#383838',
+  gray30: '#444748',
+  gray40: '#5C5F60',
+  gray50: '#747878',
+  gray60: '#8E9192',
+  gray70: '#A9ACAC',
+  gray80: '#C4C7C7',
+  gray90: '#E1E3E3',
+  gray95: '#EFF1F1',
+  gray99: '#FBFCFD',
+  gray100: '#FFFFFF',
+};
+
+const grayVariant = {
+  grayVariant0: '#000000',
+  grayVariant10: '#141D1F',
+  grayVariant20: '#293234',
+  grayVariant30: '#3F484A',
+  grayVariant40: '#576062',
+  grayVariant50: '#6F797B',
+  grayVariant60: '#899294',
+  grayVariant70: '#A3ADAF',
+  grayVariant80: '#BFC8CA',
+  grayVariant90: '#DBE4E6',
+  grayVariant95: '#E9F2F4',
+  grayVariant99: '#F6FEFF',
+  grayVariant100: '#FFFFFF',
+};
+
+const lightColors = {
+  primary: blue.blue40,
+  onPrimary: blue.blue99,
+  primaryContainer: blue.blue90,
+  onPrimaryContainer: blue.blue10,
+  primaryFixed: blue.blue90,
+  onPrimaryFixed: blue.blue10,
+  primaryFixedVariant: blue.blue80,
+  onPrimaryFixedVariant: blue.blue30,
+  inversePrimary: blue.blue80,
+
+  information: purple.purple40,
+  onInformation: purple.purple99,
+  informationContainer: purple.purple90,
+  onInformationContainer: purple.purple10,
+
+  success: green.green40,
+  onSuccess: green.green99,
+  successContainer: green.green90,
+  onSuccessContainer: green.green10,
+
+  error: red.red40,
+  onError: red.red99,
+  errorContainer: red.red90,
+  onErrorContainer: red.red10,
+
+  outline: grayVariant.grayVariant50,
+  outlineVariant: grayVariant.grayVariant80,
+  background: gray.gray99,
+  onBackground: gray.gray10,
+  surface: gray.gray99,
+  onSurface: gray.gray10,
+  surfaceVariant: grayVariant.grayVariant90,
+  onSurfaceVariant: grayVariant.grayVariant30,
+  shadow: gray.gray0,
+};
+
+const darkColors = {
+  primary: blue.blue80,
+  onPrimary: blue.blue20,
+  primaryContainer: blue.blue30,
+  onPrimaryContainer: blue.blue90,
+  primaryFixed: blue.blue90,
+  onPrimaryFixed: blue.blue10,
+  primaryFixedVariant: blue.blue80,
+  onPrimaryFixedVariant: blue.blue30,
+  inversePrimary: blue.blue40,
+
+  information: purple.purple80,
+  onInformation: purple.purple20,
+  informationContainer: purple.purple30,
+  onInformationContainer: purple.purple90,
+
+  success: green.green80,
+  onSuccess: green.green20,
+  successContainer: green.green30,
+  onSuccessContainer: green.green90,
+
+  error: red.red80,
+  onError: red.red20,
+  errorContainer: red.red30,
+  onErrorContainer: red.red90,
+
+  outline: grayVariant.grayVariant60,
+  outlineVariant: grayVariant.grayVariant30,
+  background: gray.gray10,
+  onBackground: gray.gray90,
+  surface: gray.gray10,
+  onSurface: gray.gray90,
+  surfaceVariant: grayVariant.grayVariant30,
+  onSurfaceVariant: grayVariant.grayVariant80,
+  shadow: gray.gray0,
+};
+
+export { blue, green, purple, red, gray, grayVariant, lightColors, darkColors };
