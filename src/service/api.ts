@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react';
 
 import { LoginPayload, UserRes } from '@defs/auth';
 import { JournalsListRes } from '@defs/journals';
+import { UserJournal } from '@defs/journals';
 
 const config = { baseURL: 'http://localhost:3001' };
 
@@ -58,3 +59,5 @@ const refreshAuth = async () => authAPI.get<UserRes>('auth/refresh');
 
 //  ======== Journals API ========
 export const getAllJournals = async () => authAPI.get<JournalsListRes>('/journals/all');
+
+export const getJournalById = async (id: string) => authAPI.get<UserJournal>(`/journals/${id}`);

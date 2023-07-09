@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+
 import { Card } from '@components/Card';
 import { Text } from '@components/Text';
 import { UserJournal } from '@defs/journals';
@@ -6,8 +9,17 @@ export type JournalsProps = {
   journal?: UserJournal;
 };
 function Journals({ journal }: JournalsProps) {
+  const router = useRouter();
+  const onClick = useCallback(() => {
+    if (journal) {
+      router.replace(`/${journal.journalId}`).catch(console.error);
+    } else {
+      // TODO: Create a new journal
+    }
+  }, []);
   return (
     <Card
+      isPressable
       css={{
         bg: journal ? '$primary' : '$accents8',
         height: '200px',
@@ -16,6 +28,7 @@ function Journals({ journal }: JournalsProps) {
         '@xs': { height: '300px', p: '$xl' },
         '@md': { height: '400px', p: '$xl' },
       }}
+      onPress={() => onClick()}
     >
       {journal ? (
         <>
