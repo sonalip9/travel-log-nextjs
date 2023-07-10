@@ -1,20 +1,16 @@
 import { createTheme, useTheme } from '@nextui-org/react';
 import { BaseTheme } from '@nextui-org/react/types/theme';
 
+import fonts from './fonts';
 import { darkColors, lightColors } from './palette';
 import { borderRadii, spacing } from './spacing';
+
 
 const theme: BaseTheme = {
   colors: lightColors,
   space: spacing,
   radii: borderRadii,
-  fonts: {
-    display: 'Courgette, sans-serif',
-    headline: 'Nunito Sans, sans-serif',
-    title: 'Nunito Sans, sans-serif',
-    label: 'Nunito Sans, sans-serif',
-    body: 'Nunito Sans, sans-serif',
-  },
+  fonts,
 };
 
 export const lightTheme = createTheme({

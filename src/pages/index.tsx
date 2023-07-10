@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import { Container } from '@components/Container';
+import { Text } from '@components/Text';
 import { UserJournal } from '@defs/journals';
 import { useLoginRedirect } from '@hooks';
 import { getAllJournals } from '@service/api';
@@ -35,6 +36,7 @@ export default function Home() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
+        <Text type="displayLarge">Journals</Text>
         <Container
           alignCenter
           fluid
