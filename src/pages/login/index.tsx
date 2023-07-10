@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { useState } from 'react';
 
-import { STATES } from './defs';
-import { useHandleLogin } from './hooks';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { TextInput } from '@components/TextInput';
+import { STATES } from '@defs/login';
+import { useHandleLogin } from '@hooks';
 
 export default function Login() {
   const [selectedIndex, setSelectedIndex] = useState(0);
