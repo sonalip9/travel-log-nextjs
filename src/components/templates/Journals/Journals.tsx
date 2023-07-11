@@ -12,7 +12,7 @@ function Journals({ journal }: JournalsProps) {
   const router = useRouter();
   const onClick = useCallback(() => {
     if (journal) {
-      router.replace(`/${journal.journalId}`).catch(console.error);
+      router.push(`/${journal.journalId}`).catch(console.error);
     } else {
       // TODO: Create a new journal
     }
