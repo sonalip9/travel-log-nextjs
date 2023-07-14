@@ -54,11 +54,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         if (req.url?.endsWith('session?update')) {
           const { access_token, expires_in } = req.headers;
           token.accessToken = access_token as string;
-          token.expires = Date.now() + Number(expires_in) * 1000;
+          token.expiresAt = Date.now() + Number(expires_in) * 1000;
         }
         if (authToken) {
           token.accessToken = authToken;
-          token.expires = expiresAt;
+          token.expiresAt = expiresAt;
         }
         return token;
       },
@@ -76,6 +76,5 @@ declare module 'next-auth/jwt' {
   interface JWT {
     accessToken: string;
     expiresAt: number;
-    error?: 'RefreshAccessTokenError';
   }
 }
