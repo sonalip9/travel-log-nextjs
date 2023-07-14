@@ -17,7 +17,7 @@ authAPI.interceptors.request.use(async (conf) => {
 
     if (session?.accessToken) {
       conf.headers.Authorization = `Bearer ${session?.accessToken}`;
-    } else {
+    } else if (session?.user) {
       await signOut();
       return Promise.reject(Error('Unauthorized'));
     }
