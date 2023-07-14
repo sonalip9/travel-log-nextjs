@@ -24,6 +24,8 @@ export default function Home() {
       .finally(() => setPageLoading(false));
   }, [data]);
 
+  if (!data) return null;
+
   return (
     <>
       <Head>
