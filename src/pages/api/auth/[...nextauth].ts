@@ -1,13 +1,15 @@
 import { AxiosError } from 'axios';
-import { NextApiResponse, NextApiRequest } from 'next';
-import NextAuth, { User } from 'next-auth';
+import { NextApiRequest, NextApiResponse } from 'next';
+import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { signIn } from '@/service/api';
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return await NextAuth(req, res, {
+  let authToken = '';
+  let expiresAt = 0;
+
+  return (await NextAuth(req, res, {
     providers: [
       CredentialsProvider({
         id: 'credentials',
@@ -24,11 +26,12 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
             const response = await signIn(credentials);
 
             if (response.data) {
+              authToken = response.data.accessToken;
+              expiresAt = Date.now() + response.data.expiresIn * 1000;
               return {
                 id: response.data.user.id,
                 email: response.data.user.username,
-                accessToken: response.data.accessToken,
-              } as User & { accessToken: string };
+              };
             }
             return null;
           } catch (err) {
@@ -44,17 +47,18 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     ],
     callbacks: {
       session({ session, token }) {
-        session.accessToken = token.accessToken as string;
-
+        session.accessToken = token.accessToken;
         return session;
       },
-      jwt({ token, user }) {
+      jwt({ token }) {
         if (req.url?.endsWith('session?update')) {
-          const { accessToken } = req.headers;
-          token.accessToken = accessToken;
+          const { access_token, expires_in } = req.headers;
+          token.accessToken = access_token as string;
+          token.expires = Date.now() + Number(expires_in) * 1000;
         }
-        if (user && 'accessToken' in user && user.accessToken) {
-          token.accessToken = user.accessToken;
+        if (authToken) {
+          token.accessToken = authToken;
+          token.expires = expiresAt;
         }
         return token;
       },
@@ -65,5 +69,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       signIn: '/login',
     },
     debug: true,
-  });
+  })) as Promise<ReturnType<typeof NextAuth>>;
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    accessToken: string;
+    expiresAt: number;
+    error?: 'RefreshAccessTokenError';
+  }
 }
