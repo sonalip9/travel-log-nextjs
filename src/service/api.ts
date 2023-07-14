@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 
 import { LoginPayload, UserRes } from '@defs/auth';
 import { JournalsListRes } from '@defs/journals';
@@ -17,7 +17,11 @@ authAPI.interceptors.request.use(async (conf) => {
 
     if (session?.accessToken) {
       conf.headers.Authorization = `Bearer ${session?.accessToken}`;
+    } else {
+      await signOut();
+      return Promise.reject(Error('Unauthorized'));
     }
+
     return Promise.resolve(conf);
   } catch (err) {
     return Promise.reject(Error('Error in request interceptors', { cause: err }));
@@ -36,7 +40,7 @@ authAPI.interceptors.response.use(
 
         if (res.status === 200) {
           await axios.get('/api/auth/session?update', {
-            headers: { accessToken: res.data.accessToken },
+            headers: { access_token: res.data.accessToken, expires_in: res.data.expiresIn },
           });
 
           error.config.headers.Authorization = `Bearer ${res.data.accessToken}`;
