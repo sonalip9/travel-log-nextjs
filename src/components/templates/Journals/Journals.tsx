@@ -2,47 +2,75 @@ import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
 import { Card } from '@components/Card';
-import { Text } from '@components/Text';
+import { Container } from '@components/Container';
+import { EllipsisText } from '@components/EllipsisText';
 import { UserJournal } from '@defs/journals';
 
 export type JournalsProps = {
-  journal?: UserJournal;
+  journal: UserJournal;
 };
 function Journals({ journal }: JournalsProps) {
   const router = useRouter();
   const onClick = useCallback(() => {
-    if (journal) {
-      router.push(`/${journal.journalId}`).catch(console.error);
-    } else {
-      // TODO: Create a new journal
-    }
-  }, []);
+    router
+      .push(`/${journal.journalId}`)
+      .catch((err) => console.error('Redirect to journal failed', err));
+  }, [journal.journalId, router]);
+
   return (
     <Card
       isPressable
       css={{
-        bg: journal ? '$primary' : '$accents8',
-        height: '200px',
-        alignItems: 'center',
-        p: '$md',
-        '@xs': { height: '300px', p: '$xl' },
-        '@md': { height: '400px', p: '$xl' },
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        bg: '$primary',
+        height: '515px',
+        width: '406px',
+        alignItems: 'flex-start',
+        p: '$xl',
+        pl: '$3xl',
+        borderRadius: '$none',
+        borderTopRightRadius: '$xxl',
+        borderBottomRightRadius: '$xxl',
+        gap: '$xl',
       }}
       onPress={() => onClick()}
     >
-      {journal ? (
-        <>
-          <Text h4 css={{ textAlign: 'center', mb: '$sm' }}>
-            {journal.title}
-          </Text>
+      <Container>
+        <EllipsisText
+          uppercase
+          color="$onPrimary"
+          containerStyle={{
+            maxHeight: '80px',
+            overflow: 'hidden',
+            mb: '$sm',
+          }}
+          css={{
+            overflow: 'hidden',
+            maxLines: 2,
+          }}
+          type={'headlineLarge'}
+        >
+          {journal.title}
+        </EllipsisText>
 
-          <Text>{journal.description}</Text>
-        </>
-      ) : (
-        <Text h4 color="$background">
-          Create a new journal
-        </Text>
-      )}
+        <EllipsisText
+          color="$onPrimary"
+          containerStyle={{
+            maxHeight: '200px',
+            overflow: 'hidden',
+            mb: '$sm',
+          }}
+          css={{
+            overflow: 'hidden',
+            maxLines: 2,
+          }}
+          type={'bodyLarge'}
+        >
+          {journal.description}
+        </EllipsisText>
+      </Container>
     </Card>
   );
 }

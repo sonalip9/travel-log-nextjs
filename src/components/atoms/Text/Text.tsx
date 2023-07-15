@@ -10,15 +10,21 @@ type TextProps = NUIProps & {
   flex?: boolean;
   center?: boolean;
   right?: boolean;
+  uppercase?: boolean;
+  lowercase?: boolean;
+  capitalize?: boolean;
 };
 
 /**
  * A component that renders a text element.
+ *
  * @param props The props passed to the component.
+ * @param ref The ref to the component.
+ * @default props { transform:	"none", size:	"inherit", color:	"default", weight: "noset" }
  * @returns The Text component.
  */
 const TextComponent = forwardRef(function (
-  { css, row, flex, ...props }: TextProps,
+  { css, row, flex, uppercase, lowercase, capitalize, transform, ...props }: TextProps,
   ref: React.Ref<HTMLElement>,
 ) {
   return (
@@ -26,12 +32,13 @@ const TextComponent = forwardRef(function (
       ref={ref}
       css={{
         direction: row ? 'row' : 'column',
-        display: flex ? 'flex' : undefined,
-        gap: 0,
-        m: 0,
+        display: flex ? 'flex' : css?.display,
         textAlign: props.center ? 'center' : props.right ? 'right' : css?.textAlign,
         ...css,
       }}
+      transform={
+        uppercase ? 'uppercase' : lowercase ? 'lowercase' : capitalize ? 'capitalize' : transform
+      }
       {...props}
     />
   );
@@ -144,6 +151,9 @@ const StyledText = styled(TextComponent, {
         letterSpacing: '0.03125rem',
       },
     },
+  },
+  defaultVariants: {
+    type: 'bodySmall',
   },
 });
 
