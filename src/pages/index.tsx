@@ -25,7 +25,7 @@ export default function Home() {
       .finally(() => setPageLoading(false));
   }, [data]);
 
-  if (!data) return null;
+  if (!data || pageLoading) return null;
 
   return (
     <>
@@ -36,35 +36,27 @@ export default function Home() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Text type="displayLarge">Journals</Text>
-        <Container
-          alignCenter
-          fluid
-          row
-          css={{
-            height: '100vh',
-            minWidth: '100vw',
-            p: '$md',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-            gridGap: '$xs $xs',
-            '@xs': {
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              p: '$xl',
-              gridGap: '$xl $xl',
-            },
-            '@md': {
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              p: '$xl',
-              gridGap: '$xl $xl',
-            },
-          }}
-          display="grid"
-          justify="flex-start"
-        >
-          {journals?.map((journal) => (
-            <Journals key={journal.journalId} journal={journal} />
-          ))}
-          {!pageLoading && <Journals />}
+        <Container fluid css={{ p: '$xl' }}>
+          <Text css={{ m: '$xl' }} type="displayLarge">
+            Journals
+          </Text>
+          <Container
+            alignCenter
+            fluid
+            row
+            css={{
+              height: '100vh',
+              minWidth: '100vw',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(406px, 1fr))',
+              gridGap: '$xl',
+            }}
+            display="grid"
+            justify="flex-start"
+          >
+            {journals?.map((journal) => (
+              <Journals key={journal.journalId} journal={journal} />
+            ))}
+          </Container>
         </Container>
       </main>
     </>
