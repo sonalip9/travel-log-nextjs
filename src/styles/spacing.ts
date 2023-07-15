@@ -1,21 +1,21 @@
 export const spacing = {
-  none: 0,
-  xs: 4,
-  sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 24,
-  xxl: 32,
-  '3xl': 48,
-  '4xl': 64,
+  none: '0px',
+  xs: '4px',
+  sm: '8px',
+  md: '12px',
+  lg: '16x',
+  xl: '24px',
+  xxl: '32px',
+  '3xl': '48px',
+  '4xl': '64px',
 };
 
 export const borderRadii = {
-    none: 0,
-    xs: 4,
-    sm: 8,
-    md: 16,
-    lg: 24,
-    xl: 32,
-    xxl: 48,
-}
+  none: '0px',
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  xxl: '48px',
+};
