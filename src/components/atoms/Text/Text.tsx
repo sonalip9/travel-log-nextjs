@@ -1,9 +1,11 @@
-import { Text, TextProps as NUIProps, styled } from '@nextui-org/react';
+'use client';
+import { TextProps as NUIProps, Text, styled } from '@nextui-org/react';
+import React, { forwardRef } from 'react';
 
 /**
  * The props passed to the Text component.
  */
-export type TextProps = NUIProps & {
+type TextProps = NUIProps & {
   row?: boolean;
   flex?: boolean;
   center?: boolean;
@@ -15,21 +17,27 @@ export type TextProps = NUIProps & {
  * @param props The props passed to the component.
  * @returns The Text component.
  */
-function TextComponent({ css, row, flex, ...props }: TextProps) {
+const TextComponent = forwardRef(function (
+  { css, row, flex, ...props }: TextProps,
+  ref: React.Ref<HTMLElement>,
+) {
   return (
     <Text
+      ref={ref}
       css={{
         direction: row ? 'row' : 'column',
         display: flex ? 'flex' : undefined,
         gap: 0,
         m: 0,
-        textAlign: props.center ? 'center' : props.right ? 'right' : undefined,
+        textAlign: props.center ? 'center' : props.right ? 'right' : css?.textAlign,
         ...css,
       }}
       {...props}
     />
   );
-}
+});
+
+TextComponent.displayName = 'Text';
 
 const StyledText = styled(TextComponent, {
   variants: {
@@ -138,5 +146,7 @@ const StyledText = styled(TextComponent, {
     },
   },
 });
+
+export type StyledTextProps = React.ComponentProps<typeof StyledText>;
 
 export default StyledText;
