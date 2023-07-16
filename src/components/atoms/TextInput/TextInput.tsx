@@ -1,11 +1,14 @@
-import { Input } from '@nextui-org/react';
+import { Input, Textarea } from '@nextui-org/react';
 
 import { useColor } from './hooks';
 import { TextInputProps } from './types';
 
-export default function TextInput(props: TextInputProps) {
+export default function TextInput({ multiline, ...props }: TextInputProps) {
   const color = useColor(props);
 
+  if (multiline) {
+    return <Textarea color={color} {...props} />;
+  }
   return <Input color={color} {...props} />;
 }
 
