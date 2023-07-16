@@ -23,7 +23,9 @@ export default function Home() {
       .then((res) => setJournals(res.data.userJournals))
       .catch(console.error)
       .finally(() => setPageLoading(false));
-  }, [data]);
+  const handler = () => {
+    setVisible(true);
+  };
 
   if (!data || pageLoading) return null;
 
@@ -57,6 +59,16 @@ export default function Home() {
               <Journals key={journal.journalId} journal={journal} />
             ))}
           </Container>
+          <Button
+            auto
+            color="primary"
+            css={{ position: 'fixed', bottom: '$xl', right: '$xl', fontWeight: '600' }}
+            icon={<AddCircleOutline />}
+            size="lg"
+            onPress={() => handler()}
+          >
+            Journal
+          </Button>
         </Container>
       </main>
     </>
