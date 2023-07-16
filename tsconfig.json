@@ -28,6 +28,7 @@
       "@utils": ["./src/utils/index.ts"],
       "@types": ["./src/types/index.ts"],
       "@service/*": ["./src/service/*"],
+      "@icons": ["./src/components/icons/index.ts"],
       "@/*": ["./src/*"]
     }
   },

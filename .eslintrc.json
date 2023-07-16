@@ -62,6 +62,7 @@
     // React Plugin - rules available via `eslint-plugin-react`.
     "react/jsx-boolean-value": "warn",
     "react/jsx-closing-tag-location": "error",
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
     "react/jsx-curly-spacing": "error",
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".jsx"] }],
     "react/jsx-pascal-case": "error",
@@ -122,6 +123,7 @@
           { "alias": "@types", "matcher": "./src/types/index.ts" },
           { "alias": "@defs", "matcher": "./src/defs" },
           { "alias": "@service", "matcher": "./src/service" },
+          { "alias": "@icons", "matcher": "./src/components/icons/index.ts" },
           { "alias": "@", "matcher": "./src" }
         ]
       }
