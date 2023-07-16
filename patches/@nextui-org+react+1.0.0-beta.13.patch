@@ -118,3 +118,22 @@ index 980576f..294d3f7 100644
 +    placeholder?: string;
 +    initialValue?: string;
  };
+diff --git a/node_modules/@nextui-org/react/types/textarea/textarea.d.ts b/node_modules/@nextui-org/react/types/textarea/textarea.d.ts
+index 4cc8460..45968bc 100644
+--- a/node_modules/@nextui-org/react/types/textarea/textarea.d.ts
++++ b/node_modules/@nextui-org/react/types/textarea/textarea.d.ts
+@@ -16,10 +16,10 @@ interface Props {
+     onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+ }
+ declare const defaultProps: {
+-    minRows: number;
+-    maxRows: number;
+-    cacheMeasurements: boolean;
+-    initialValue: string;
++    minRows?: number;
++    maxRows?: number;
++    cacheMeasurements?: boolean;
++    initialValue?: string;
+ };
+ declare type NativeAttrs = Omit<React.TextareaHTMLAttributes<any>, keyof Props | keyof InputProps>;
+ declare type BaseAttrs = Omit<InputProps, ExcludedInputProps>;

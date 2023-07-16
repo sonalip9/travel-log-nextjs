@@ -24,12 +24,13 @@ type TextProps = NUIProps & {
  * @returns The Text component.
  */
 const TextComponent = forwardRef(function (
-  { css, row, flex, uppercase, lowercase, capitalize, transform, ...props }: TextProps,
+  { css, row, flex, uppercase, lowercase, color, capitalize, transform, ...props }: TextProps,
   ref: React.Ref<HTMLElement>,
 ) {
   return (
     <Text
       ref={ref}
+      color={color ?? '$onBackground'}
       css={{
         direction: row ? 'row' : 'column',
         display: flex ? 'flex' : css?.display,
