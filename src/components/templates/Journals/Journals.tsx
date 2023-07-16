@@ -8,8 +8,9 @@ import { UserJournal } from '@defs/journals';
 
 export type JournalsProps = {
   journal: UserJournal;
+  onUpdate: () => void;
 };
-function Journals({ journal }: JournalsProps) {
+function Journals({ journal, onUpdate }: JournalsProps) {
   const router = useRouter();
   const onClick = useCallback(() => {
     router
@@ -35,6 +36,7 @@ function Journals({ journal }: JournalsProps) {
         borderBottomRightRadius: '$xxl',
         gap: '$xl',
       }}
+      onMouseOver={() => onUpdate()}
       onPress={() => onClick()}
     >
       <Container>
@@ -50,7 +52,7 @@ function Journals({ journal }: JournalsProps) {
             overflow: 'hidden',
             maxLines: 2,
           }}
-          type={'headlineLarge'}
+          type="headlineLarge"
         >
           {journal.title}
         </EllipsisText>
@@ -66,7 +68,7 @@ function Journals({ journal }: JournalsProps) {
             overflow: 'hidden',
             maxLines: 2,
           }}
-          type={'bodyLarge'}
+          type="bodyLarge"
         >
           {journal.description}
         </EllipsisText>

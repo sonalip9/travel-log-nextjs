@@ -1,8 +1,8 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 
 import { LoginPayload, UserRes } from '@defs/auth';
-import { JournalsListRes } from '@defs/journals';
+import { CreateJournalPayload, JournalsListRes } from '@defs/journals';
 import { UserJournal } from '@defs/journals';
 
 const config = { baseURL: 'http://localhost:3001' };
@@ -65,3 +65,12 @@ const refreshAuth = async () => authAPI.get<UserRes>('auth/refresh');
 export const getAllJournals = async () => authAPI.get<JournalsListRes>('/journals/all');
 
 export const getJournalById = async (id: string) => authAPI.get<UserJournal>(`/journals/${id}`);
+
+export const postCreateJournal = (payload: CreateJournalPayload) =>
+  authAPI.post<UserJournal, AxiosResponse<UserJournal, CreateJournalPayload>>('journals', payload);
+
+export const patchUpdateJournal = (id: string, payload: CreateJournalPayload) =>
+  authAPI.patch<UserJournal, AxiosResponse<UserJournal, CreateJournalPayload>>(
+    `journals/${id}`,
+    payload,
+  );

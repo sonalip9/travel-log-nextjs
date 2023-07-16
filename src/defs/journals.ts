@@ -19,3 +19,8 @@ export interface Page {
   updatedAt: Date;
   pageId: string;
 }
+
+export interface CreateJournalPayload {
+  title: string;
+  description?: string;
+}
