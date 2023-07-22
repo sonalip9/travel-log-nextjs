@@ -23,6 +23,21 @@ index 0da41d9..b3a23b1 100644
  };
  declare type NativeAttrs = Omit<React.HTMLAttributes<unknown>, keyof Props>;
  export declare type ButtonGroupProps = Props & ButtonGroupVariantsProps & NativeAttrs & typeof defaultProps & {
+diff --git a/node_modules/@nextui-org/react/types/col/col.d.ts b/node_modules/@nextui-org/react/types/col/col.d.ts
+index fd6ac07..dcd0123 100644
+--- a/node_modules/@nextui-org/react/types/col/col.d.ts
++++ b/node_modules/@nextui-org/react/types/col/col.d.ts
+@@ -9,8 +9,8 @@ interface Props {
+     children?: React.ReactNode;
+ }
+ declare const defaultProps: {
+-    span: number;
+-    offset: number;
++    span?: number;
++    offset?: number;
+ };
+ declare type NativeAttrs = Omit<React.HTMLAttributes<unknown>, keyof Props>;
+ export declare type ColProps = Props & typeof defaultProps & ColVariantsProps & NativeAttrs;
 diff --git a/node_modules/@nextui-org/react/types/container/container.d.ts b/node_modules/@nextui-org/react/types/container/container.d.ts
 index 7f10c7f..4a3c923 100644
 --- a/node_modules/@nextui-org/react/types/container/container.d.ts
