@@ -1,3 +1,5 @@
+import { Page } from './pages';
+
 export interface JournalsListRes {
   userJournals: UserJournal[];
 }
@@ -10,14 +12,6 @@ export interface UserJournal {
   createdAt: Date;
   updatedAt: Date;
   journalId: string;
-}
-
-export interface Page {
-  date: Date;
-  title: string;
-  createdAt: Date;
-  updatedAt: Date;
-  pageId: string;
 }
 
 export interface CreateJournalPayload {
