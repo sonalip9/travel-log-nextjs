@@ -8,7 +8,7 @@ import { Text } from '@components/Text';
 import { CreateJournalPayload, UserJournal } from '@defs/journals';
 import { useLoginRedirect } from '@hooks';
 import { AddCircleOutline } from '@icons';
-import { postCreateJournal, getAllJournals, patchUpdateJournal } from '@service/api';
+import { postCreateJournal, getAllJournals, patchUpdateJournal, deleteJournal } from '@service/api';
 import { CreateProps, EditJournalModal, Journals, UpdateProps } from '@templates/Journals';
 
 enum MODAL_PROPS_ACTIONS {
@@ -101,6 +101,12 @@ export default function Home() {
       .finally(() => setVisible(false));
   };
 
+  const onDeleteJournal = (journalId: string) => {
+    deleteJournal(journalId)
+      .then(() => fetchAllJournals())
+      .catch(console.error);
+  };
+
   if (!data || pageLoading) return null;
 
   return (
@@ -141,6 +147,7 @@ export default function Home() {
               <Journals
                 key={journal.journalId}
                 journal={journal}
+                onDelete={() => onDeleteJournal(journal.journalId)}
                 onUpdate={() => handler(false, journal)}
               />
             ))}
