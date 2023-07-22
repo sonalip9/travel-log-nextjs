@@ -4,6 +4,7 @@ import { getSession, signOut } from 'next-auth/react';
 import { LoginPayload, UserRes } from '@defs/auth';
 import { CreateJournalPayload, JournalsListRes } from '@defs/journals';
 import { UserJournal } from '@defs/journals';
+import { CreatePagePayload } from '@defs/pages';
 
 const config = { baseURL: 'http://localhost:3001' };
 
@@ -76,3 +77,20 @@ export const patchUpdateJournal = (id: string, payload: CreateJournalPayload) =>
   );
 
 export const deleteJournal = (id: string) => authAPI.delete(`journals/${id}`);
+
+// ======== Pages API ========
+export const postCreatePage = (
+  journalId: string,
+  payload: CreatePagePayload,
+): Promise<AxiosResponse<UserJournal, CreatePagePayload>> =>
+  authAPI.post(`/journals/${journalId}/pages`, payload);
+
+export const patchUpdatePage = (
+  journalId: string,
+  pageId: string,
+  payload: CreatePagePayload,
+): Promise<AxiosResponse<UserJournal, CreatePagePayload>> =>
+  authAPI.patch(`/journals/${journalId}/pages/${pageId}`, payload);
+
+export const deletePage = (journalId: string, pageId: string) =>
+  authAPI.delete(`/journals/${journalId}/pages/${pageId}`);
