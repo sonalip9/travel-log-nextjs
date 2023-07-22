@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+
+import JournalActions from './JournalActions';
 
 import { Card } from '@components/Card';
 import { Container } from '@components/Container';
@@ -9,14 +11,17 @@ import { UserJournal } from '@defs/journals';
 export type JournalsProps = {
   journal: UserJournal;
   onUpdate: () => void;
+  onDelete: () => void;
 };
-function Journals({ journal, onUpdate }: JournalsProps) {
+function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
   const router = useRouter();
   const onClick = useCallback(() => {
     router
       .push(`/${journal.journalId}`)
       .catch((err) => console.error('Redirect to journal failed', err));
   }, [journal.journalId, router]);
+
+  const [isActionVisible, setIsActionVisible] = useState(false);
 
   return (
     <Card
@@ -29,17 +34,24 @@ function Journals({ journal, onUpdate }: JournalsProps) {
         height: '515px',
         width: '406px',
         alignItems: 'flex-start',
-        p: '$xl',
-        pl: '$3xl',
         borderRadius: '$none',
         borderTopRightRadius: '$xxl',
         borderBottomRightRadius: '$xxl',
-        gap: '$xl',
       }}
-      onMouseOver={() => onUpdate()}
+      onMouseLeave={() => setIsActionVisible(false)}
+      onMouseOver={() => setIsActionVisible(true)}
       onPress={() => onClick()}
     >
-      <Container>
+      <Container
+        css={{
+          overflow: 'hidden',
+          alignItems: 'flex-start',
+          p: '$xl',
+          pl: '$3xl',
+          gap: '$xl',
+          flex: 1,
+        }}
+      >
         <EllipsisText
           uppercase
           color="$onPrimary"
@@ -73,6 +85,7 @@ function Journals({ journal, onUpdate }: JournalsProps) {
           {journal.description}
         </EllipsisText>
       </Container>
+      {isActionVisible && <JournalActions onDelete={onDelete} onEdit={onUpdate} onView={onClick} />}
     </Card>
   );
 }

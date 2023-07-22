@@ -74,3 +74,5 @@ export const patchUpdateJournal = (id: string, payload: CreateJournalPayload) =>
     `journals/${id}`,
     payload,
   );
+
+export const deleteJournal = (id: string) => authAPI.delete(`journals/${id}`);
