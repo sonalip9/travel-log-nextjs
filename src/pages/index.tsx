@@ -1,111 +1,21 @@
 import Head from 'next/head';
 import { useSession } from 'next-auth/react';
-import { Reducer, useEffect, useReducer, useState } from 'react';
+
+import { useJournal } from '../hooks/useJournal';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { Text } from '@components/Text';
-import { CreateJournalPayload, UserJournal } from '@defs/journals';
 import { useLoginRedirect } from '@hooks';
 import { AddCircleOutline } from '@icons';
-import { postCreateJournal, getAllJournals, patchUpdateJournal, deleteJournal } from '@service/api';
-import { CreateProps, EditJournalModal, Journals, UpdateProps } from '@templates/Journals';
-
-enum MODAL_PROPS_ACTIONS {
-  CREATE = 'CREATE',
-  UPDATE = 'UPDATE',
-  RESET = 'RESET',
-}
-
-type ModalProps = CreateProps | UpdateProps;
-
-type ActionParam =
-  | { type: MODAL_PROPS_ACTIONS.CREATE; payload: CreateProps }
-  | { type: MODAL_PROPS_ACTIONS.UPDATE; payload: UpdateProps }
-  | { type: MODAL_PROPS_ACTIONS.RESET };
-
-const modalPropsAction = (state: ModalProps | undefined, action: ActionParam) => {
-  switch (action.type) {
-    case 'CREATE':
-      return { ...action.payload };
-    case 'UPDATE':
-      return { ...action.payload };
-    case 'RESET':
-      return undefined;
-    default:
-      return state;
-  }
-};
+import { EditJournalModal, Journals } from '@templates/Journals';
 
 export default function Home() {
   useLoginRedirect();
   const { data } = useSession();
 
-  const [journals, setJournals] = useState<UserJournal[]>();
-
-  const [pageLoading, setPageLoading] = useState(true);
-
-  const fetchAllJournals = () => {
-    setPageLoading(true);
-    getAllJournals()
-      .then((res) => setJournals(res.data.userJournals))
-      .catch(console.error)
-      .finally(() => setPageLoading(false));
-  };
-
-  useEffect(() => {
-    fetchAllJournals();
-  }, []);
-
-  const [visible, setVisible] = useState(false);
-
-  const [modalProps, dispatch] = useReducer<Reducer<ModalProps | undefined, ActionParam>>(
-    modalPropsAction,
-    undefined,
-  );
-  const handler = (isCreate: boolean, journal?: UserJournal) => {
-    if (isCreate) {
-      dispatch({
-        type: MODAL_PROPS_ACTIONS.CREATE,
-        payload: {
-          isCreate: true,
-          onCreate: onCreateJournal,
-        },
-      });
-    } else if (journal) {
-      dispatch({
-        type: MODAL_PROPS_ACTIONS.UPDATE,
-        payload: {
-          isCreate: false,
-          onUpdate: onUpdateJournal,
-          updateJournal: journal,
-        },
-      });
-    }
-    setVisible(true);
-  };
-  const closeHandler = () => {
-    dispatch({ type: MODAL_PROPS_ACTIONS.RESET });
-    setVisible(false);
-  };
-  const onCreateJournal = (createJournal: CreateJournalPayload) => {
-    postCreateJournal(createJournal)
-      .then(() => fetchAllJournals())
-      .catch(console.error)
-      .finally(() => setVisible(false));
-  };
-  const onUpdateJournal = (journalId: string, createJournal: CreateJournalPayload) => {
-    patchUpdateJournal(journalId, createJournal)
-      .then(() => fetchAllJournals())
-      .catch(console.error)
-      .finally(() => setVisible(false));
-  };
-
-  const onDeleteJournal = (journalId: string) => {
-    deleteJournal(journalId)
-      .then(() => fetchAllJournals())
-      .catch(console.error);
-  };
+  const { closeModal, journals, modalProps, onDeleteJournal, openModal, pageLoading, visible } =
+    useJournal();
 
   if (!data || pageLoading) return null;
 
@@ -148,7 +58,7 @@ export default function Home() {
                 key={journal.journalId}
                 journal={journal}
                 onDelete={() => onDeleteJournal(journal.journalId)}
-                onUpdate={() => handler(false, journal)}
+                onUpdate={() => openModal(false, journal)}
               />
             ))}
           </Container>
@@ -158,12 +68,12 @@ export default function Home() {
             css={{ position: 'fixed', bottom: '$xl', right: '$xl', fontWeight: '600' }}
             icon={<AddCircleOutline />}
             size="lg"
-            onPress={() => handler(true)}
+            onPress={() => openModal(true)}
           >
             Journal
           </Button>
           {modalProps && (
-            <EditJournalModal visible={visible} onCancel={closeHandler} {...modalProps} />
+            <EditJournalModal visible={visible} onCancel={closeModal} {...modalProps} />
           )}
         </Container>
       </main>

@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 
-import JournalActions from './JournalActions';
-
 import { Card } from '@components/Card';
 import { Container } from '@components/Container';
 import { EllipsisText } from '@components/EllipsisText';
 import { UserJournal } from '@defs/journals';
+import { DeleteOutline, EditOutline, ViewOutline } from '@icons';
+import { TravelLogsActions } from '@templates/TravelLogs';
 
 export type JournalsProps = {
   journal: UserJournal;
@@ -85,7 +85,15 @@ function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
           {journal.description}
         </EllipsisText>
       </Container>
-      {isActionVisible && <JournalActions onDelete={onDelete} onEdit={onUpdate} onView={onClick} />}
+
+      <TravelLogsActions
+        actions={[
+          { icon: <ViewOutline />, label: 'View', onPress: onClick },
+          { icon: <EditOutline />, label: 'Edit', onPress: onUpdate },
+          { icon: <DeleteOutline />, label: 'Delete', onPress: onDelete },
+        ]}
+        isVisible={isActionVisible}
+      />
     </Card>
   );
 }

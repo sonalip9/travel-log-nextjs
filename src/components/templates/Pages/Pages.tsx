@@ -1,9 +1,9 @@
-import PageActions from './PageActions';
-
 import { Column, Container } from '@components/Container';
 import { EllipsisText } from '@components/EllipsisText';
 import { Text } from '@components/Text';
 import { Page } from '@defs/pages';
+import { EditOutline, DeleteOutline } from '@icons';
+import { TravelLogsActions } from '@templates/TravelLogs';
 
 export type PagesProps = {
   page: Page;
@@ -48,7 +48,14 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
         </Text>
       </Container>
 
-      <PageActions onDelete={onDelete} onEdit={onUpdate} />
+      <TravelLogsActions
+        isVisible
+        actions={[
+          { icon: <EditOutline />, label: 'Edit', onPress: onUpdate },
+          { icon: <DeleteOutline />, label: 'Delete', onPress: onDelete },
+        ]}
+        containerStyle={{ bg: '$primaryContainer' }}
+      />
     </Column>
   );
 }
