@@ -1,123 +1,28 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { Reducer, useEffect, useMemo, useReducer, useState } from 'react';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { Text } from '@components/Text';
-import { UserJournal } from '@defs/journals';
-import { CreatePagePayload, Page } from '@defs/pages';
-import { useLoginRedirect } from '@hooks';
+import { useLoginRedirect, usePages } from '@hooks';
 import { AddCircleOutline } from '@icons';
-import { deletePage, getJournalById, patchUpdatePage, postCreatePage } from '@service/api';
 import { Pages } from '@templates/Pages';
-import { EditPageModal, CreateProps, UpdateProps } from '@templates/Pages';
-
-enum MODAL_PROPS_ACTIONS {
-  CREATE = 'CREATE',
-  UPDATE = 'UPDATE',
-  RESET = 'RESET',
-}
-
-type ModalProps = CreateProps | UpdateProps;
-
-type ActionParam =
-  | { type: MODAL_PROPS_ACTIONS.CREATE; payload: CreateProps }
-  | { type: MODAL_PROPS_ACTIONS.UPDATE; payload: UpdateProps }
-  | { type: MODAL_PROPS_ACTIONS.RESET };
-
-const modalPropsAction = (state: ModalProps | undefined, action: ActionParam) => {
-  switch (action.type) {
-    case 'CREATE':
-      return { ...action.payload };
-    case 'UPDATE':
-      return { ...action.payload };
-    case 'RESET':
-      return undefined;
-    default:
-      return state;
-  }
-};
+import { EditPageModal } from '@templates/Pages';
 
 export default function PagePages() {
-  const router = useRouter();
   useLoginRedirect();
   const { data } = useSession();
 
-  const [pages, setPages] = useState<Page[]>();
-  const [journalDetails, setJournalDetails] = useState<Omit<UserJournal, 'pages'>>();
-
-  const [pageLoading, setPageLoading] = useState(true);
-
-  const journalId = useMemo(() => router.query.journalId as string, [router.query]);
-
-  const fetchAllPages = () => {
-    setPageLoading(true);
-    getJournalById(journalId)
-      .then((res) => {
-        const { pages: allPages, ...journal } = res.data;
-        setJournalDetails(journal);
-        setPages(allPages);
-      })
-      .catch(console.error)
-      .finally(() => setPageLoading(false));
-  };
-
-  useEffect(() => {
-    fetchAllPages();
-  }, []);
-
-  const [visible, setVisible] = useState(false);
-
-  const [modalProps, dispatch] = useReducer<Reducer<ModalProps | undefined, ActionParam>>(
-    modalPropsAction,
-    undefined,
-  );
-
-  const handler = (isCreate: boolean, page?: Page) => {
-    if (isCreate) {
-      dispatch({
-        type: MODAL_PROPS_ACTIONS.CREATE,
-        payload: {
-          isCreate: true,
-          onCreate: onCreatePage,
-        },
-      });
-    } else if (page) {
-      dispatch({
-        type: MODAL_PROPS_ACTIONS.UPDATE,
-        payload: {
-          isCreate: false,
-          onUpdate: onUpdatePage,
-          updatePage: page,
-        },
-      });
-    }
-    setVisible(true);
-  };
-  const closeHandler = () => {
-    dispatch({ type: MODAL_PROPS_ACTIONS.RESET });
-    setVisible(false);
-  };
-  const onCreatePage = (createPage: CreatePagePayload) => {
-    postCreatePage(journalId, createPage)
-      .then(() => fetchAllPages())
-      .catch(console.error)
-      .finally(() => setVisible(false));
-  };
-  const onUpdatePage = (pageId: string, createPage: CreatePagePayload) => {
-    patchUpdatePage(journalId, pageId, createPage)
-      .then(() => fetchAllPages())
-      .catch(console.error)
-      .finally(() => setVisible(false));
-  };
-
-  const onDeletePage = (pageId: string) => {
-    deletePage(journalId, pageId)
-      .then(() => fetchAllPages())
-      .catch(console.error);
-  };
+  const {
+    closeHandler,
+    journalDetails,
+    modalProps,
+    onDeletePage,
+    handler,
+    pageLoading,
+    visible,
+    pages,
+  } = usePages();
 
   if (!data || pageLoading) return null;
 
