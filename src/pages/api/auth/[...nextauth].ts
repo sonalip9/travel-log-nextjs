@@ -71,10 +71,3 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     debug: true,
   })) as Promise<ReturnType<typeof NextAuth>>;
 }
-
-declare module 'next-auth/jwt' {
-  interface JWT {
-    accessToken: string;
-    expiresAt: number;
-  }
-}
