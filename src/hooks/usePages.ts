@@ -1,38 +1,13 @@
 import { useRouter } from 'next/router';
-import { useState, useReducer, Reducer, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useTravelLogActions } from './useActions';
+import { useModal } from './useModal';
 
 import { UserJournal } from '@defs/journals';
 import { Page, CreatePagePayload } from '@defs/pages';
 import { getJournalById, postCreatePage, patchUpdatePage, deletePage } from '@service/api';
 import { CreateProps, UpdateProps } from '@templates/Pages';
-
-enum MODAL_PROPS_ACTIONS {
-  CREATE = 'CREATE',
-  UPDATE = 'UPDATE',
-  RESET = 'RESET',
-}
-
-type ModalProps = CreateProps | UpdateProps;
-
-type ActionParam =
-  | { type: MODAL_PROPS_ACTIONS.CREATE; payload: CreateProps }
-  | { type: MODAL_PROPS_ACTIONS.UPDATE; payload: UpdateProps }
-  | { type: MODAL_PROPS_ACTIONS.RESET };
-
-const modalPropsAction = (state: ModalProps | undefined, action: ActionParam) => {
-  switch (action.type) {
-    case 'CREATE':
-      return { ...action.payload };
-    case 'UPDATE':
-      return { ...action.payload };
-    case 'RESET':
-      return undefined;
-    default:
-      return state;
-  }
-};
 
 export const usePages = () => {
   const router = useRouter();
@@ -72,38 +47,6 @@ export const usePages = () => {
     travelLog: pages,
   } = useTravelLogActions(fetchJournal());
 
-  const [visible, setVisible] = useState(false);
-
-  const [modalProps, dispatch] = useReducer<Reducer<ModalProps | undefined, ActionParam>>(
-    modalPropsAction,
-    undefined,
-  );
-
-  const handler = (isCreate: boolean, page?: Page) => {
-    if (isCreate) {
-      dispatch({
-        type: MODAL_PROPS_ACTIONS.CREATE,
-        payload: {
-          isCreate: true,
-          onCreate: onCreatePage,
-        },
-      });
-    } else if (page) {
-      dispatch({
-        type: MODAL_PROPS_ACTIONS.UPDATE,
-        payload: {
-          isCreate: false,
-          onUpdate: onUpdatePage,
-          updatePage: page,
-        },
-      });
-    }
-    setVisible(true);
-  };
-  const closeHandler = () => {
-    dispatch({ type: MODAL_PROPS_ACTIONS.RESET });
-    setVisible(false);
-  };
   const onCreatePage = (createPage: CreatePagePayload) => {
     if (!journalId) return;
     onCreateTravelLog(postCreatePage(journalId, createPage));
@@ -117,6 +60,17 @@ export const usePages = () => {
     if (!journalId) return;
     onDeleteTravelLog(deletePage(journalId, pageId));
   };
+
+  const {
+    closeModal: closeHandler,
+    openModal: handler,
+    visible,
+    modalProps,
+  } = useModal(
+    { isCreate: true, onCreate: onCreatePage } as CreateProps,
+    (page: Page) =>
+      ({ isCreate: false as const, onUpdate: onUpdatePage, updatePage: page } as UpdateProps),
+  );
 
   return {
     journalDetails,
