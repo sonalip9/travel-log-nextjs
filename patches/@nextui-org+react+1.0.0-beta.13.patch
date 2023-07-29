@@ -133,6 +133,31 @@ index 980576f..294d3f7 100644
 +    placeholder?: string;
 +    initialValue?: string;
  };
+diff --git a/node_modules/@nextui-org/react/types/switch/switch.d.ts b/node_modules/@nextui-org/react/types/switch/switch.d.ts
+index a4f5310..1426eb9 100644
+--- a/node_modules/@nextui-org/react/types/switch/switch.d.ts
++++ b/node_modules/@nextui-org/react/types/switch/switch.d.ts
+@@ -27,13 +27,13 @@ interface Props {
+     as?: keyof JSX.IntrinsicElements;
+ }
+ declare const defaultProps: {
+-    disabled: boolean;
+-    bordered: boolean;
+-    shadow: boolean;
+-    squared: boolean;
+-    animated: boolean;
+-    preventDefault: boolean;
+-    initialChecked: boolean;
++    disabled?: boolean;
++    bordered?: boolean;
++    shadow?: boolean;
++    squared?: boolean;
++    animated?: boolean;
++    preventDefault?: boolean;
++    initialChecked?: boolean;
+ };
+ declare type NativeAttrs = Omit<React.LabelHTMLAttributes<unknown>, keyof Props>;
+ export declare type SwitchProps = Props & typeof defaultProps & NativeAttrs & SwitchContainerVariantsProps & {
 diff --git a/node_modules/@nextui-org/react/types/textarea/textarea.d.ts b/node_modules/@nextui-org/react/types/textarea/textarea.d.ts
 index 4cc8460..45968bc 100644
 --- a/node_modules/@nextui-org/react/types/textarea/textarea.d.ts
