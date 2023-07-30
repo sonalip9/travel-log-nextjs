@@ -9,6 +9,7 @@ import { Text } from '@components/Text';
 import { useLoginRedirect } from '@hooks';
 import { AddCircleOutline } from '@icons';
 import { EditJournalModal, Journals } from '@templates/Journals';
+import { NavBar } from '@templates/NavBar';
 
 export default function Home() {
   useLoginRedirect();
@@ -38,9 +39,13 @@ export default function Home() {
           }}
           responsive={false}
         >
-          <Text css={{ m: '$xl' }} type="displayLarge">
-            Journals
-          </Text>
+          <Container flex row alignItems="flex-start" css={{ mb: '$xl' }} responsive={false}>
+            <Text css={{ m: '$md' }} type="displayLarge">
+              Journals
+            </Text>
+            <NavBar />
+          </Container>
+
           <Container
             alignCenter
             fluid
@@ -52,6 +57,7 @@ export default function Home() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(406px, 1fr))',
             }}
             display="grid"
+            responsive={false}
           >
             {journals?.map((journal) => (
               <Journals
@@ -62,6 +68,7 @@ export default function Home() {
               />
             ))}
           </Container>
+
           <Button
             auto
             color="primary"
@@ -72,6 +79,7 @@ export default function Home() {
           >
             Journal
           </Button>
+
           {modalProps && (
             <EditJournalModal visible={visible} onCancel={closeModal} {...modalProps} />
           )}

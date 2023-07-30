@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { useState } from 'react';
 
-
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { TextInput } from '@components/TextInput';
 import { STATES } from '@defs/login';
 import { useHandleLogin } from '@hooks';
+import { NavBar } from '@templates/NavBar';
 
 export default function Login() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -37,11 +37,16 @@ export default function Login() {
       <main>
         <Container
           alignCenter
+          flex
           fluid
           justifyCenter
-          css={{ height: '100vh', minWidth: '100vw' }}
-          display="flex"
+          css={{ minHeight: '100vh', minWidth: '100vw' }}
+          responsive={false}
         >
+          <NavBar />
+
+          <Container css={{ flex: 1 }} />
+
           <Container
             alignCenter
             fluid
@@ -96,6 +101,8 @@ export default function Login() {
               {group[selectedIndex]}
             </Button>
           </Container>
+
+          <Container css={{ flex: 1 }} />
         </Container>
       </main>
     </>

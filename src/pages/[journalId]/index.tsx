@@ -6,6 +6,7 @@ import { Container } from '@components/Container';
 import { Text } from '@components/Text';
 import { useLoginRedirect, usePages } from '@hooks';
 import { AddCircleOutline } from '@icons';
+import { NavBar } from '@templates/NavBar';
 import { Pages } from '@templates/Pages';
 import { EditPageModal } from '@templates/Pages';
 
@@ -41,8 +42,19 @@ export default function PagePages() {
           css={{ height: '100vh', bg: '$background', gap: '$xl' }}
           responsive={false}
         >
-          <Container css={{ gap: '$sm', p: '$xxl', pb: '$none' }}>
-            <Text type="displayLarge">{journalDetails?.title}</Text>
+          <Container css={{ gap: '$sm', p: '$xxl', pb: '$none' }} responsive={false}>
+            <Container
+              flex
+              fluid
+              row
+              alignItems="flex-start"
+              css={{ mb: '$xl' }}
+              responsive={false}
+            >
+              <Text type="displayLarge">{journalDetails?.title}</Text>
+              <Container css={{ flex: 1 }} />
+              <NavBar />
+            </Container>
             <Text type="headlineSmall">{journalDetails?.description}</Text>
           </Container>
 
