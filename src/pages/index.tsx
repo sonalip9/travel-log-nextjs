@@ -1,19 +1,15 @@
 import Head from 'next/head';
-import { useSession } from 'next-auth/react';
-
-import { useJournal } from '../hooks/useJournal';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { Text } from '@components/Text';
-import { useLoginRedirect } from '@hooks';
+import { useJournal, useLoginRedirect } from '@hooks';
 import { AddCircleOutline } from '@icons';
 import { EditJournalModal, Journals } from '@templates/Journals';
 import { NavBar } from '@templates/NavBar';
 
 export default function Home() {
-  useLoginRedirect();
-  const { data } = useSession();
+  const { data } = useLoginRedirect();
 
   const { closeModal, journals, modalProps, onDeleteJournal, openModal, pageLoading, visible } =
     useJournal();
