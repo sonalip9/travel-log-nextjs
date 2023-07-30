@@ -52,20 +52,11 @@ function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
           flex: 1,
         }}
       >
-        <EllipsisText
-          uppercase
-          color="$onPrimary"
-          containerStyle={{ maxHeight: '80px', mb: '$sm' }}
-          type="headlineLarge"
-        >
+        <EllipsisText uppercase color="$onPrimary" css={{ maxLines: 2 }} type="headlineLarge">
           {journal.title}
         </EllipsisText>
 
-        <EllipsisText
-          color="$onPrimary"
-          containerStyle={{ maxHeight: '200px', mb: '$sm' }}
-          type="bodyLarge"
-        >
+        <EllipsisText color="$onPrimary" css={{ maxLines: 10 }} type="bodyLarge">
           {journal.description}
         </EllipsisText>
       </Container>
