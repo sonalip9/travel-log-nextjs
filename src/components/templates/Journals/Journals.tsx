@@ -55,15 +55,7 @@ function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
         <EllipsisText
           uppercase
           color="$onPrimary"
-          containerStyle={{
-            maxHeight: '80px',
-            overflow: 'hidden',
-            mb: '$sm',
-          }}
-          css={{
-            overflow: 'hidden',
-            maxLines: 2,
-          }}
+          containerStyle={{ maxHeight: '80px', mb: '$sm' }}
           type="headlineLarge"
         >
           {journal.title}
@@ -71,15 +63,7 @@ function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
 
         <EllipsisText
           color="$onPrimary"
-          containerStyle={{
-            maxHeight: '200px',
-            overflow: 'hidden',
-            mb: '$sm',
-          }}
-          css={{
-            overflow: 'hidden',
-            maxLines: 2,
-          }}
+          containerStyle={{ maxHeight: '200px', mb: '$sm' }}
           type="bodyLarge"
         >
           {journal.description}

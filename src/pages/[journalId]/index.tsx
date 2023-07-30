@@ -38,12 +38,7 @@ export default function PagePages() {
         <Container
           flex
           fluid
-          css={{
-            height: '100vh',
-            width: '100vw',
-            bg: '$background',
-            gap: '$xl',
-          }}
+          css={{ height: '100vh', bg: '$background', gap: '$xl' }}
           responsive={false}
         >
           <Container css={{ gap: '$sm', p: '$xxl', pb: '$none' }}>
@@ -58,7 +53,6 @@ export default function PagePages() {
             row
             css={{
               flex: 1,
-              width: 'auto',
               gap: '$xl',
               overflowX: 'auto',
               overflowY: 'none',
