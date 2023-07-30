@@ -36,7 +36,7 @@ export default function Home() {
           responsive={false}
         >
           <Container flex row alignItems="flex-start" css={{ mb: '$xl' }} responsive={false}>
-            <Text css={{ m: '$md' }} type="displayLarge">
+            <Text css={{ m: '$md', flex: 1 }} type="displayLarge">
               Journals
             </Text>
             <NavBar />
