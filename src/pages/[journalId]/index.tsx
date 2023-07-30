@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { useSession } from 'next-auth/react';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
@@ -11,8 +10,7 @@ import { Pages } from '@templates/Pages';
 import { EditPageModal } from '@templates/Pages';
 
 export default function PagePages() {
-  useLoginRedirect();
-  const { data } = useSession();
+  const { data } = useLoginRedirect();
 
   const {
     closeHandler,
