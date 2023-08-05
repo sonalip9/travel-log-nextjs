@@ -60,7 +60,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
   const [titleIsValid, setTitleIsValid] = useState<boolean | undefined>();
 
   return (
-    <Modal open={visible}>
+    <Modal open={visible} onClose={onCancel}>
       <Container
         as="form"
         css={{ px: '$lg', pt: '$lg', gap: '$xxl' }}
@@ -122,7 +122,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
             Cancel
           </Button>
           <Button auto light color="primary" type="submit">
-            Create
+            {props.isCreate ? 'Create' : 'Update'}
           </Button>
         </Container>
       </Container>
