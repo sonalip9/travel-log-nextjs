@@ -1,4 +1,5 @@
 import { Button, ButtonProps as NUIButtonProps, styled } from '@nextui-org/react';
+import { useMemo } from 'react';
 
 import { Loading } from '@components/Loading';
 
@@ -8,27 +9,31 @@ export type ButtonProps = Omit<NUIButtonProps, 'color'> & {
 };
 
 function ButtonComponent({ isLoading, children, ...props }: ButtonProps) {
-  const StyledButton = styled(Button, {
-    variants: {
-      color: {
-        default: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
-        primary: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
-      },
-      light: {
-        true: { bg: '$transparent', color: '$text' },
-      },
-    },
-    compoundVariants: [
-      {
-        color: 'primary',
-        light: true,
-        css: { bg: '$transparent', color: '$primary' },
-      },
-    ],
-    defaultVariants: {
-      color: 'default',
-    },
-  });
+  const StyledButton = useMemo(
+    () =>
+      styled(Button, {
+        variants: {
+          color: {
+            default: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
+            primary: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
+          },
+          light: {
+            true: { bg: '$transparent', color: '$text' },
+          },
+        },
+        compoundVariants: [
+          {
+            color: 'primary',
+            light: true,
+            css: { bg: '$transparent', color: '$primary' },
+          },
+        ],
+        defaultVariants: {
+          color: 'default',
+        },
+      }),
+    [],
+  );
 
   return (
     <StyledButton {...props}>
