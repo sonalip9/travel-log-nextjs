@@ -53,7 +53,7 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
   const [titleIsValid, setTitleIsValid] = useState<boolean | undefined>();
 
   return (
-    <Modal open={visible}>
+    <Modal open={visible} onClose={onCancel}>
       <Container
         as="form"
         css={{ px: '$lg', pt: '$lg', gap: '$xxl' }}
@@ -115,7 +115,7 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
             Cancel
           </Button>
           <Button auto light color="primary" type="submit">
-            Create
+            {props.isCreate ? 'Create' : 'Update'}
           </Button>
         </Container>
       </Container>
