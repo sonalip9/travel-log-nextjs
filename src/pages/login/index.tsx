@@ -54,7 +54,9 @@ export default function Login() {
           css={{ minHeight: '100vh', minWidth: '100vw' }}
           responsive={false}
         >
-          <NavBar />
+          <Container fluid row alignContent="flex-end" responsive={false}>
+            <NavBar />
+          </Container>
 
           <Container css={{ flex: 1 }} />
 
