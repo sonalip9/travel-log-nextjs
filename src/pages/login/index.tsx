@@ -10,8 +10,8 @@ import { NavBar } from '@templates/NavBar';
 
 export default function Login() {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const group = Object.values(STATES).map((key) => {
     switch (key) {
