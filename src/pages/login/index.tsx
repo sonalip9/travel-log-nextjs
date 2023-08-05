@@ -1,17 +1,19 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { TextInput } from '@components/TextInput';
 import { STATES } from '@defs/login';
-import { useHandleLogin } from '@hooks';
+import { login } from '@helper';
 import { NavBar } from '@templates/NavBar';
 
 export default function Login() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const group = Object.values(STATES).map((key) => {
     switch (key) {
@@ -24,7 +26,16 @@ export default function Login() {
     }
   });
 
-  const { handleLogin, isLoading } = useHandleLogin({ username: email, password, selectedIndex });
+  const handleLogin = useCallback(() => {
+    setLoading(true);
+    login(selectedIndex, email, password)
+      ?.catch((err) => {
+        console.error('Error logging in: ', err);
+      })
+      ?.finally(() => {
+        setLoading(false);
+      });
+  }, [selectedIndex, email, password]);
 
   return (
     <>
