@@ -14,14 +14,7 @@ function NavBar() {
   const { status } = useSession();
 
   return (
-    <Container
-      alignCenter
-      flex
-      row
-      css={{ p: '$sm', gap: '$lg', width: 'auto' }}
-      justify="flex-end"
-      responsive={false}
-    >
+    <Container alignCenter row css={{ p: '$sm', gap: '$lg', width: 'auto' }} justify="flex-end">
       <Switch
         checked={!isDark}
         iconOff={<MoonIcon filled />}

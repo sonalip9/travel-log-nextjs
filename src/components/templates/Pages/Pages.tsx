@@ -26,7 +26,7 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
       }}
       span={3}
     >
-      <Container flex css={{ gap: '$md', p: '$md' }}>
+      <Container css={{ gap: '$md', p: '$md' }}>
         <EllipsisText containerStyle={{ maxH: 44 }} type="headlineLarge">
           {page.title}
         </EllipsisText>

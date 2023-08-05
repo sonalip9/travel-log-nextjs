@@ -26,16 +26,14 @@ export default function Home() {
       </Head>
       <main>
         <Container
-          fluid
           css={{
             height: '100vh',
             width: '100vw',
             p: '$xxl',
             bg: '$background',
           }}
-          responsive={false}
         >
-          <Container flex row alignItems="flex-start" css={{ mb: '$xl' }} responsive={false}>
+          <Container row alignItems="flex-start" css={{ mb: '$xl' }}>
             <Text css={{ m: '$md', flex: 1 }} type="displayLarge">
               Journals
             </Text>
@@ -44,7 +42,6 @@ export default function Home() {
 
           <Container
             alignCenter
-            fluid
             row
             css={{
               height: 'auto',
@@ -53,7 +50,6 @@ export default function Home() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(406px, 1fr))',
             }}
             display="grid"
-            responsive={false}
           >
             {journals?.map((journal) => (
               <Journals

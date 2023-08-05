@@ -46,15 +46,8 @@ export default function Login() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container
-          alignCenter
-          flex
-          fluid
-          justifyCenter
-          css={{ minHeight: '100vh', minWidth: '100vw' }}
-          responsive={false}
-        >
-          <Container fluid row alignContent="flex-end" responsive={false}>
+        <Container css={{ minHeight: '100vh', minWidth: '100vw' }}>
+          <Container css={{ width: '100%' }} justify="flex-end">
             <NavBar />
           </Container>
 
@@ -62,7 +55,6 @@ export default function Login() {
 
           <Container
             alignCenter
-            fluid
             justifyCenter
             css={{
               backgroundColor: '$accents1',
@@ -70,6 +62,7 @@ export default function Login() {
               gap: '12px',
               p: '$xl',
               width: '80vw',
+              alignSelf: 'center',
               '@sm': { width: '50vw' },
               '@md': { width: '40vw' },
             }}

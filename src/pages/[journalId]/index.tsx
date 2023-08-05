@@ -34,21 +34,9 @@ export default function PagePages() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container
-          flex
-          fluid
-          css={{ height: '100vh', bg: '$background', gap: '$xl' }}
-          responsive={false}
-        >
-          <Container css={{ gap: '$sm', p: '$xxl', pb: '$none' }} responsive={false}>
-            <Container
-              flex
-              fluid
-              row
-              alignItems="flex-start"
-              css={{ mb: '$xl' }}
-              responsive={false}
-            >
+        <Container css={{ height: '100vh', bg: '$background', gap: '$xl' }}>
+          <Container css={{ gap: '$sm', p: '$xxl', pb: '$none' }}>
+            <Container row alignItems="flex-start" css={{ mb: '$xl' }}>
               <Text type="displayLarge">{journalDetails?.title}</Text>
               <Container css={{ flex: 1 }} />
               <NavBar />
@@ -58,8 +46,6 @@ export default function PagePages() {
 
           <Container
             alignCenter
-            flex
-            fluid
             row
             css={{
               flex: 1,
@@ -69,7 +55,6 @@ export default function PagePages() {
               p: '$xxl',
               pt: '$none',
             }}
-            responsive={false}
           >
             {pages?.map((page) => (
               <Pages

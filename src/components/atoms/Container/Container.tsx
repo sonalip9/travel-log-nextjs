@@ -19,7 +19,6 @@ const ContainerComponent = forwardRef(function (
 
   return (
     <Container
-      fluid
       alignItems={alignCenter ? 'center' : undefined}
       css={{ m: 0, ...css }}
       direction={flexDirection}
@@ -34,5 +33,11 @@ const ContainerComponent = forwardRef(function (
 });
 
 ContainerComponent.displayName = 'Container';
+
+ContainerComponent.defaultProps = {
+  responsive: false,
+  fluid: true,
+  flex: true,
+};
 
 export default ContainerComponent;
