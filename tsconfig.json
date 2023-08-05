@@ -25,6 +25,7 @@
       "@defs/*": ["./src/defs/*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks": ["./src/hooks/index.ts"],
+      "@helper": ["./src/helper/index.ts"],
       "@utils": ["./src/utils/index.ts"],
       "@types": ["./src/types/index.ts"],
       "@service/*": ["./src/service/*"],
