@@ -55,7 +55,6 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
   return (
     <Modal open={visible}>
       <Container
-        flex
         as="form"
         css={{ px: '$lg', pt: '$lg', gap: '$xxl' }}
         onSubmit={() => {
@@ -111,7 +110,7 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
           }
         />
 
-        <Container flex row css={{ p: '$xl', gap: '$sm' }} justify="flex-end">
+        <Container row css={{ p: '$xl', gap: '$sm' }} justify="flex-end">
           <Button auto light color="primary" onPress={onCancel}>
             Cancel
           </Button>

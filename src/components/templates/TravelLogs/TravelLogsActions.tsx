@@ -18,7 +18,7 @@ type TravelLogsActionsProps = {
 function TravelLogsActions({ isVisible, actions, containerStyle }: TravelLogsActionsProps) {
   return (
     <Container
-      flex
+
       row
       css={{
         gap: '$md',
