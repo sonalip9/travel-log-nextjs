@@ -30,7 +30,7 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
         <EllipsisText containerStyle={{ maxH: 44 }} type="headlineLarge">
           {page.title}
         </EllipsisText>
-        <Text type="titleLarge">{new Date(page.date).toLocaleDateString()}</Text>
+        <Text type="titleLarge">{new Date(page.date).toDateString()}</Text>
         {/* Todo - add image */}
       </Container>
       <Container

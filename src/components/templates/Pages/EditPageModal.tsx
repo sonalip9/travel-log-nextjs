@@ -6,6 +6,7 @@ import { Modal } from '@components/Modal';
 import { Text } from '@components/Text';
 import { TextInput } from '@components/TextInput';
 import { CreatePagePayload as PageMetaPayload, Page } from '@defs/pages';
+import { formatDateTime } from '@utils/date-time';
 
 enum UPDATE_PAGE_ACTIONS {
   UPDATE_TITLE = 'UPDATE_TITLE',
@@ -15,18 +16,22 @@ enum UPDATE_PAGE_ACTIONS {
 }
 
 type ActionParam =
-  | { type: UPDATE_PAGE_ACTIONS.UPDATE_DATE; payload: Date }
+  | { type: UPDATE_PAGE_ACTIONS.UPDATE_DATE; payload: string }
   | { type: UPDATE_PAGE_ACTIONS.UPDATE_TITLE; payload: string }
   | { type: UPDATE_PAGE_ACTIONS.UPDATE_DESCRIPTION; payload: string }
   | { type: UPDATE_PAGE_ACTIONS.RESET };
 
-const editPageAction = (state: PageMetaPayload | undefined, action: ActionParam) => {
+const editPageAction = (
+  state: PageMetaPayload | undefined,
+  action: ActionParam,
+): PageMetaPayload | undefined => {
+  const today = new Date().toISOString();
   switch (action.type) {
     case 'UPDATE_TITLE':
-      return { ...state, date: state?.date || new Date(), title: action.payload };
+      return { ...state, date: state?.date || today, title: action.payload };
     case 'UPDATE_DESCRIPTION':
-      if (!state) return { title: '', description: action.payload, date: new Date() };
-      return { ...state, date: state?.date || new Date(), description: action.payload };
+      if (!state) return { title: '', description: action.payload, date: today };
+      return { ...state, date: state?.date || today, description: action.payload };
     case 'UPDATE_DATE':
       if (!state) return { title: '', description: '', date: action.payload };
       return { ...state, date: action.payload };
@@ -98,6 +103,22 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
             setTitleIsValid(false);
           }}
         />
+
+        <TextInput
+          bordered
+          fullWidth
+          css={{ alignItems: 'flex-start' }}
+          label="Date"
+          type="date"
+          value={formatDateTime(new Date(page?.date ?? new Date()), 'YYYY-MM-DD')}
+          onChange={({ target }) =>
+            setPage({
+              type: UPDATE_PAGE_ACTIONS.UPDATE_DATE,
+              payload: target.value,
+            })
+          }
+        />
+
         <TextInput
           bordered
           fullWidth
