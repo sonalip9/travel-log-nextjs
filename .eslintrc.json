@@ -120,7 +120,7 @@
           { "alias": "@pages", "matcher": "./src/pages" },
           { "alias": "@hooks", "matcher": "./src/hooks/index.ts" },
           { "alias": "@helper", "matcher": "./src/helper/index.ts" },
-          { "alias": "@utils", "matcher": "./src/utils/index.ts" },
+          { "alias": "@utils", "matcher": "./src/utils" },
           { "alias": "@types", "matcher": "./src/types/index.ts" },
           { "alias": "@defs", "matcher": "./src/defs" },
           { "alias": "@service", "matcher": "./src/service" },

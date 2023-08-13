@@ -1,5 +1,5 @@
 export interface Page {
-  date: Date;
+  date: string;
   title: string;
   description?: string;
   createdAt: Date;
@@ -10,5 +10,5 @@ export interface Page {
 export interface CreatePagePayload {
   title: string;
   description?: string;
-  date: Date;
+  date: string;
 }
