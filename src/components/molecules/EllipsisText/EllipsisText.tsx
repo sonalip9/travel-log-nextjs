@@ -7,6 +7,13 @@ export type EllipsisTextProps = TextProps & {
   containerStyle?: ContainerProps['css'];
 };
 
+/**
+ * A text component that truncates the text to fit in the container and max lines
+ *
+ * To truncate the text, the component uses the css property `max-lines` or the `max-height` of the container
+ * @param props The props for the EllipsisText component - containerStyle and textProps
+ * @returns A JSX element
+ */
 function EllipsisText({ containerStyle, ...textProps }: EllipsisTextProps) {
   const textRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLElement>(null);
@@ -33,7 +40,7 @@ function EllipsisText({ containerStyle, ...textProps }: EllipsisTextProps) {
     const containerWidth = containerRef.current?.offsetWidth || 0;
     const containerHeight = containerRef.current?.offsetHeight || 0;
 
-    // If the text fits in the container or no max line is defined, return
+    // If the text fits in the container and max line is not defined, return
     if (
       textWidth <= containerWidth &&
       textHeight <= containerHeight &&
@@ -41,17 +48,19 @@ function EllipsisText({ containerStyle, ...textProps }: EllipsisTextProps) {
     )
       return;
 
-
-      const currLines = Math.floor(textHeight / lineHeight);
+    const currLines = Math.floor(textHeight / lineHeight);
+    // If the text fits in the container then the lines count is maxLines
+    // else the lines count is the number of lines that fit in the container
+    // Todo - CHeck implementation with both, maxLines and container height
     const lineCount: number =
       textHeight <= containerHeight
-        ? (maxLines ?? currLines)
+        ? maxLines ?? currLines
         : Math.floor(containerHeight / lineHeight);
 
-        // If number of lines is less than the max lines, return
+    // If number of lines is less than the max lines, return
     if (currLines <= lineCount) return;
 
-      // Approximate the number of characters that fit in the first line
+    // Approximate the number of characters that fit in the first line
     let charInLine = Math.floor(currText.length / currLines);
     charInLine = currText.indexOf(' ', charInLine);
 
@@ -81,7 +90,9 @@ function EllipsisText({ containerStyle, ...textProps }: EllipsisTextProps) {
 
     // Add ellipsis
     textRef.current.innerText = textRef.current.innerText + '...';
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // The useEffect dependency array is empty because we want this to run only once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
