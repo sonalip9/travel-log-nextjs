@@ -5,3 +5,4 @@ export { default as EditOutline } from './EditOutline';
 export { SunIcon } from './Sun';
 export { MoonIcon } from './Moon';
 export type { IconProps } from './types';
+export { default as Close } from './Close';

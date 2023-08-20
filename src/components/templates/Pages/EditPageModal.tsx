@@ -1,5 +1,6 @@
 import { useReducer, useRef, useState } from 'react';
 
+import { Close } from '@/components/icons';
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
 import { Image } from '@components/Image';
@@ -144,36 +145,53 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
           }
         />
 
-        <TextInput
-          ref={ref}
-          bordered
-          accept="image/*"
-          color="primary"
-          css={{
-            alignItems: 'flex-start',
-            verticalAlign: 'bottom',
-            input: { height: 'fit-content' },
-          }}
-          label="Photo"
-          type="file"
-          onChange={({ target }) => {
-            const photo = (target as HTMLInputElement).files?.[0];
-            if (!photo) return;
+        <Container flex css={{ gap: '$sm' }}>
+          <TextInput
+            ref={ref}
+            bordered
+            accept="image/*"
+            color="primary"
+            css={{
+              alignItems: 'flex-start',
+              verticalAlign: 'bottom',
+              input: { height: 'fit-content' },
+            }}
+            label="Photo"
+            type="file"
+            onChange={({ target }) => {
+              const photo = (target as HTMLInputElement).files?.[0];
+              if (!photo) return;
 
-            setPage({
-              type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
-              payload: photo,
-            });
-          }}
-        />
-        {page?.photo && (
-          <Image
-            alt="Photo"
-            css={{ width: '35%', aspectRatio: 1 }}
-            objectFit="cover"
-            src={getSrcForImage(page.photo)}
+              setPage({
+                type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
+                payload: photo,
+              });
+            }}
           />
-        )}
+          {page?.photo && (
+            <Container row css={{ flex: 1, width: '100%', mt: '$md' }}>
+              <Image
+                alt="Photo"
+                containerCss={{ maxWidth: '35%', m: '$none' }}
+                css={{ aspectRatio: 1 }}
+                objectFit="cover"
+                src={getSrcForImage(page.photo)}
+              />
+              <Button
+                rounded
+                color="error"
+                css={{ position: 'relative', top: -10, right: 10, minWidth: 'auto', p: '$2' }}
+                icon={<Close size={16} />}
+                size="xs"
+                onPress={() => {
+                  setPage({
+                    type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
+                  });
+                }}
+              />
+            </Container>
+          )}
+        </Container>
 
         <TextInput
           bordered

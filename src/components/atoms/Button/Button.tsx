@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Loading } from '@components/Loading';
 
 export type ButtonProps = Omit<NUIButtonProps, 'color'> & {
-  color?: 'default' | 'primary';
+  color?: 'primary' | 'error';
   isLoading?: boolean;
 };
 
@@ -14,8 +14,8 @@ function ButtonComponent({ isLoading, children, ...props }: ButtonProps) {
       styled(Button, {
         variants: {
           color: {
-            default: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
             primary: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
+            error: { bg: '$errorContainer', color: '$onErrorContainer' },
           },
           light: {
             true: { bg: '$transparent', color: '$text' },
@@ -29,7 +29,7 @@ function ButtonComponent({ isLoading, children, ...props }: ButtonProps) {
           },
         ],
         defaultVariants: {
-          color: 'default',
+          color: 'primary',
         },
       }),
     [],
