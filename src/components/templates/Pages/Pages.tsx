@@ -1,9 +1,11 @@
 import { Column, Container } from '@components/Container';
 import { EllipsisText } from '@components/EllipsisText';
+import { Image } from '@components/Image';
 import { Text } from '@components/Text';
 import { Page } from '@defs/pages';
 import { EditOutline, DeleteOutline } from '@icons';
 import { TravelLogsActions } from '@templates/TravelLogs';
+import { getSrcForImage } from '@utils/file';
 
 export type PagesProps = {
   page: Page;
@@ -31,15 +33,25 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
           {page.title}
         </EllipsisText>
         <Text type="titleLarge">{new Date(page.date).toDateString()}</Text>
-        {/* Todo - add image */}
       </Container>
+
+      {page.photo && (
+        <Image
+          alt="Photo"
+          containerCss={{ flex: 1 }}
+          css={{ aspectRatio: '1.5' }}
+          objectFit="cover"
+          src={getSrcForImage(page.photo)}
+        />
+      )}
+
       <Container
         css={{
           overflowY: 'auto',
           overflowX: 'hidden',
           scrollPadding: '$none',
           maxHeight: '100%',
-          flex: 1,
+          flex: 2,
           p: '$md',
         }}
       >
