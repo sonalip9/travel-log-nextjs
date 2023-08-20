@@ -5,7 +5,7 @@ import type { UserJournal, JournalsListRes } from '@defs/journals';
 import { Page } from '@defs/pages';
 
 export const useTravelLogActions = <Res = JournalsListRes | UserJournal>(
-  fetchCallback: Promise<AxiosResponse<Res, unknown> | undefined>,
+  fetchCallback: () => Promise<AxiosResponse<Res, unknown> | undefined>,
 ) => {
   type TravelLog = Res extends UserJournal ? Page : UserJournal;
   const [travelLog, setTravelLog] = useState<TravelLog[]>();
@@ -14,7 +14,7 @@ export const useTravelLogActions = <Res = JournalsListRes | UserJournal>(
 
   const fetchTravelLog = useCallback(() => {
     setPageLoading(true);
-    fetchCallback
+    fetchCallback()
       .then((res) => {
         if (!res) return;
         setTravelLog(

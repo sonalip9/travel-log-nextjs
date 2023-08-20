@@ -45,7 +45,7 @@ export const usePages = () => {
     onUpdateTravelLog,
     pageLoading,
     travelLog: pages,
-  } = useTravelLogActions(fetchJournal());
+  } = useTravelLogActions(fetchJournal);
 
   const onCreatePage = (createPage: CreatePagePayload) => {
     if (!journalId) return;

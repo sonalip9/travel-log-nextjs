@@ -9,7 +9,7 @@ import { CreateProps, UpdateProps } from '@templates/Journals';
 
 export const useJournal = () => {
   const { onCreateTravelLog, onDeleteTravelLog, onUpdateTravelLog, pageLoading, travelLog } =
-    useTravelLogActions(getAllJournals());
+    useTravelLogActions(getAllJournals);
 
   const onDeleteJournal = useCallback(
     (journalId: string) => onDeleteTravelLog(deleteJournal(journalId)),
