@@ -30,10 +30,10 @@ const editPageAction = (
     case 'UPDATE_TITLE':
       return { ...state, date: state?.date || today, title: action.payload };
     case 'UPDATE_DESCRIPTION':
-      if (!state) return { title: '', description: action.payload, date: today };
-      return { ...state, date: state?.date || today, description: action.payload };
+      if (!state) return { title: '', content: action.payload, date: today };
+      return { ...state, date: state?.date || today, content: action.payload };
     case 'UPDATE_DATE':
-      if (!state) return { title: '', description: '', date: action.payload };
+      if (!state) return { title: '', content: '', date: action.payload };
       return { ...state, date: action.payload };
     case 'RESET':
       return undefined;
@@ -125,11 +125,11 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
           multiline
           primary
           css={{ alignItems: 'flex-start' }}
-          initialValue={'updatePage' in props ? props.updatePage?.description : ''}
+          initialValue={'updatePage' in props ? props.updatePage?.content : ''}
           label="Description"
           maxRows={5}
           placeholder="Please enter a description"
-          value={page?.description}
+          value={page?.content}
           onChange={({ target }) =>
             setPage({
               type: UPDATE_PAGE_ACTIONS.UPDATE_DESCRIPTION,

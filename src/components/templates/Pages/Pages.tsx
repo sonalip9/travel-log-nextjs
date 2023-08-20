@@ -44,7 +44,7 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
         }}
       >
         <Text css={{ whiteSpace: 'preserve wrap' }} type="bodyLarge">
-          {page.description}
+          {page.content}
         </Text>
       </Container>
 
