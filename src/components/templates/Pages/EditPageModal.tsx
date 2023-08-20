@@ -1,17 +1,20 @@
-import { useReducer, useState } from 'react';
+import { useReducer, useRef, useState } from 'react';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
+import { Image } from '@components/Image';
 import { Modal } from '@components/Modal';
 import { Text } from '@components/Text';
 import { TextInput } from '@components/TextInput';
-import { CreatePagePayload as PageMetaPayload, Page } from '@defs/pages';
+import { CreatePagePayload as PageMetaPayload, Page, Photo } from '@defs/pages';
 import { formatDateTime } from '@utils/date-time';
+import { photoObjectToFile, getSrcForImage } from '@utils/file';
 
 enum UPDATE_PAGE_ACTIONS {
   UPDATE_TITLE = 'UPDATE_TITLE',
   UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION',
   UPDATE_DATE = 'UPDATE_DATE',
+  UPDATE_IMAGE = 'UPDATE_IMAGE',
   RESET = 'RESET',
 }
 
@@ -19,12 +22,12 @@ type ActionParam =
   | { type: UPDATE_PAGE_ACTIONS.UPDATE_DATE; payload: string }
   | { type: UPDATE_PAGE_ACTIONS.UPDATE_TITLE; payload: string }
   | { type: UPDATE_PAGE_ACTIONS.UPDATE_DESCRIPTION; payload: string }
+  | { type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE; payload?: PageMetaPayload['photo'] }
   | { type: UPDATE_PAGE_ACTIONS.RESET };
 
-const editPageAction = (
-  state: PageMetaPayload | undefined,
-  action: ActionParam,
-): PageMetaPayload | undefined => {
+type PageState = (Omit<PageMetaPayload, 'photo'> & { photo?: File | Photo }) | undefined;
+
+const editPageAction = (state: PageState, action: ActionParam): PageState => {
   const today = new Date().toISOString();
   switch (action.type) {
     case 'UPDATE_TITLE':
@@ -35,6 +38,9 @@ const editPageAction = (
     case 'UPDATE_DATE':
       if (!state) return { title: '', content: '', date: action.payload };
       return { ...state, date: action.payload };
+    case 'UPDATE_IMAGE':
+      if (!state) return { title: '', content: '', date: today };
+      return { ...state, date: state?.date || today, photo: action.payload };
     case 'RESET':
       return undefined;
     default:
@@ -49,7 +55,7 @@ export type CreateProps = {
 export type UpdateProps = {
   isCreate: false;
   onUpdate: (pageId: string, createPage: PageMetaPayload) => void;
-  updatePage: Page;
+  updatePage: Pick<PageMetaPayload, 'photo'> & Page;
 };
 export type EditPageModalProps = {
   visible: boolean;
@@ -64,6 +70,8 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
 
   const [titleIsValid, setTitleIsValid] = useState<boolean | undefined>();
 
+  const ref = useRef<HTMLInputElement>(null);
+
   return (
     <Modal open={visible} onClose={onCancel}>
       <Container
@@ -72,9 +80,25 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
         onSubmit={() => {
           if (!page) return onCancel();
           if (props.isCreate) {
-            props.onCreate(page);
+            if (page.photo && !(page.photo instanceof File)) {
+              photoObjectToFile(page.photo)
+                .then((file) => props.onCreate({ ...page, photo: file }))
+                .catch(console.error);
+              return;
+            }
+            // The below spread of object is required to avoid ts error
+            props.onCreate({ ...page, photo: page.photo });
           } else {
-            props.onUpdate(props.updatePage.pageId, page);
+            if (page.photo && !(page.photo instanceof File)) {
+              photoObjectToFile(page.photo)
+                .then((file) => {
+                  props.onUpdate(props.updatePage.pageId, { ...page, photo: file });
+                })
+                .catch(console.error);
+              return;
+            }
+            // The below spread of object is required to avoid ts error
+            props.onUpdate(props.updatePage.pageId, { ...page, photo: page.photo });
           }
         }}
       >
@@ -107,6 +131,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
         <TextInput
           bordered
           fullWidth
+          color="primary"
           css={{ alignItems: 'flex-start' }}
           label="Date"
           type="date"
@@ -120,10 +145,41 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
         />
 
         <TextInput
+          ref={ref}
+          bordered
+          accept="image/*"
+          color="primary"
+          css={{
+            alignItems: 'flex-start',
+            verticalAlign: 'bottom',
+            input: { height: 'fit-content' },
+          }}
+          label="Photo"
+          type="file"
+          onChange={({ target }) => {
+            const photo = (target as HTMLInputElement).files?.[0];
+            if (!photo) return;
+
+            setPage({
+              type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
+              payload: photo,
+            });
+          }}
+        />
+        {page?.photo && (
+          <Image
+            alt="Photo"
+            css={{ width: '35%', aspectRatio: 1 }}
+            objectFit="cover"
+            src={getSrcForImage(page.photo)}
+          />
+        )}
+
+        <TextInput
           bordered
           fullWidth
           multiline
-          primary
+          color="primary"
           css={{ alignItems: 'flex-start' }}
           initialValue={'updatePage' in props ? props.updatePage?.content : ''}
           label="Description"
