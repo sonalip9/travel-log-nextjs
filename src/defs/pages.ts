@@ -1,7 +1,7 @@
 export interface Page {
   date: string;
   title: string;
-  description?: string;
+  content?: string;
   createdAt: Date;
   updatedAt: Date;
   pageId: string;
@@ -9,6 +9,6 @@ export interface Page {
 
 export interface CreatePagePayload {
   title: string;
-  description?: string;
+  content?: string;
   date: string;
 }
