@@ -82,15 +82,31 @@ export const deleteJournal = (id: string) => authAPI.delete(`journals/${id}`);
 export const postCreatePage = (
   journalId: string,
   payload: CreatePagePayload,
-): Promise<AxiosResponse<UserJournal, CreatePagePayload>> =>
-  authAPI.post(`/journals/${journalId}/pages`, payload);
+): Promise<AxiosResponse<UserJournal, CreatePagePayload>> => {
+  const formData = new FormData();
+  const payloadKeys = Object.keys(payload) as (keyof CreatePagePayload)[];
+  payloadKeys.forEach((key) => {
+    if (!payload[key]) return;
+    formData.append(key, payload[key] as string | File);
+  });
+
+  return authAPI.post(`/journals/${journalId}/pages`, formData);
+};
 
 export const patchUpdatePage = (
   journalId: string,
   pageId: string,
   payload: CreatePagePayload,
-): Promise<AxiosResponse<UserJournal, CreatePagePayload>> =>
-  authAPI.patch(`/journals/${journalId}/pages/${pageId}`, payload);
+): Promise<AxiosResponse<UserJournal, CreatePagePayload>> => {
+  const formData = new FormData();
+  const payloadKeys = Object.keys(payload) as (keyof CreatePagePayload)[];
+  payloadKeys.forEach((key) => {
+    if (!payload[key]) return;
+    formData.append(key, payload[key] as string | File);
+  });
+
+  return authAPI.patch(`/journals/${journalId}/pages/${pageId}`, formData);
+};
 
 export const deletePage = (journalId: string, pageId: string) =>
   authAPI.delete(`/journals/${journalId}/pages/${pageId}`);
