@@ -3,7 +3,7 @@ import { useReducer, useRef, useState } from 'react';
 import { Close } from '@/components/icons';
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
-import { Image } from '@components/Image';
+import { ExpandImage } from '@components/ExpandImage.tsx';
 import { Modal } from '@components/Modal';
 import { Text } from '@components/Text';
 import { TextInput } from '@components/TextInput';
@@ -77,7 +77,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
     <Modal open={visible} onClose={onCancel}>
       <Container
         as="form"
-        css={{ px: '$lg', pt: '$lg', gap: '$xxl' }}
+        css={{ px: '$lg', pt: '$lg', gap: '$lg' }}
         onSubmit={() => {
           if (!page) return onCancel();
           if (props.isCreate) {
@@ -145,7 +145,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
           }
         />
 
-        <Container flex css={{ gap: '$sm' }}>
+        <Container flex css={{ gap: '$xs' }}>
           <TextInput
             ref={ref}
             bordered
@@ -169,18 +169,16 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
             }}
           />
           {page?.photo && (
-            <Container row css={{ flex: 1, width: '100%', mt: '$md' }}>
-              <Image
+            <Container row css={{ mt: '$md', maxW: '40%', aspectRatio: '1:1.18' }}>
+              <ExpandImage
                 alt="Photo"
-                containerCss={{ maxWidth: '35%', m: '$none' }}
-                css={{ aspectRatio: 1 }}
-                objectFit="cover"
                 src={getSrcForImage(page.photo)}
+                onHoverStyles={{ '&+ button': { visibility: 'hidden' } }}
               />
               <Button
                 rounded
                 color="error"
-                css={{ position: 'relative', top: -10, right: 10, minWidth: 'auto', p: '$2' }}
+                css={{ top: -10, right: 10, minWidth: 'auto', p: '$xs', aspectRatio: 1 }}
                 icon={<Close size={16} />}
                 size="xs"
                 onPress={() => {
