@@ -3,7 +3,7 @@ import { useReducer, useRef, useState } from 'react';
 import { Close } from '@/components/icons';
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
-import { ExpandImage } from '@components/ExpandImage.tsx';
+import { ExpandImage } from '@components/ExpandImage';
 import { Modal } from '@components/Modal';
 import { Text } from '@components/Text';
 import { TextInput } from '@components/TextInput';
