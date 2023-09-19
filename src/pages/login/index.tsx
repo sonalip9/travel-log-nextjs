@@ -1,9 +1,10 @@
+import { ButtonGroup } from '@nextui-org/react';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
-import { TextInput } from '@components/TextInput';
+import { PasswordInput, TextInput } from '@components/TextInput';
 import { STATES } from '@defs/login';
 import { login } from '@helper';
 import { NavBar } from '@templates/NavBar';
@@ -46,42 +47,31 @@ export default function Login() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container css={{ minHeight: '100vh', minWidth: '100vw' }}>
-          <Container css={{ width: '100%' }} justify="flex-end">
+        <Container className="min-w-full min-h-screen bg-background">
+          <Container className="min-w-full" placeItems="end">
             <NavBar />
           </Container>
 
-          <Container css={{ flex: 1 }} />
+          <Container className="flex-1" />
 
           <Container
-            alignCenter
-            justifyCenter
-            css={{
-              backgroundColor: '$accents1',
-              flexWrap: 'wrap',
-              gap: '12px',
-              p: '$xl',
-              width: '80vw',
-              alignSelf: 'center',
-              '@sm': { width: '50vw' },
-              '@md': { width: '40vw' },
-            }}
-            display="inline-flex"
+            alignSelf="center"
+            className="bg-gray-20 inline-flex w-[80vw] flex-wrap gap-lg rounded-md p-xl sm:w-[50vw] md:w-[40vw]"
+            placeItems="center"
           >
-            <Button.Group>
+            <ButtonGroup>
               {group.map((val, index) => (
                 <Button
                   key={val}
-                  bordered={index === selectedIndex}
+                  variant={index === selectedIndex ? 'bordered' : 'solid'}
                   onPress={() => setSelectedIndex(index)}
                 >
                   {val}
                 </Button>
               ))}
-            </Button.Group>
+            </ButtonGroup>
 
             <TextInput
-              fullWidth
               primary
               required
               autoComplete="on"
@@ -89,10 +79,11 @@ export default function Login() {
               placeholder="Please enter your email address"
               type="email"
               value={email}
+              variant="bordered"
               onChange={({ target: { value } }) => setEmail(value)}
             />
 
-            <TextInput.Password
+            <PasswordInput
               fullWidth
               primary
               required
@@ -100,15 +91,23 @@ export default function Login() {
               placeholder="Please enter your password"
               type="password"
               value={password}
+              variant="bordered"
               onChange={({ target: { value } }) => setPassword(value)}
             />
 
-            <Button isLoading={isLoading} onPress={handleLogin}>
+            <Button
+              className="w-[40%]"
+              color="primary"
+              isLoading={isLoading}
+              size="lg"
+              variant="solid"
+              onPress={handleLogin}
+            >
               {group[selectedIndex]}
             </Button>
           </Container>
 
-          <Container css={{ flex: 1 }} />
+          <Container className="flex-1" />
         </Container>
       </main>
     </>

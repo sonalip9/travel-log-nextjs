@@ -1,5 +1,4 @@
 import { signOut, useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
 
 import { Button } from '@components/Button';
 import { Container } from '@components/Container';
@@ -8,27 +7,33 @@ import { MoonIcon, SunIcon } from '@icons';
 import { useAppTheme } from '@styles/theme';
 
 function NavBar() {
-  const { setTheme } = useTheme();
-  const { isDark } = useAppTheme();
+  const { theme, setTheme } = useAppTheme();
 
   const { status } = useSession();
 
   return (
-    <Container alignCenter row css={{ p: '$sm', gap: '$lg', width: 'auto' }} justify="flex-end">
+    <Container row alignItems="center" className="w-auto gap-lg p-sm" justifyContent="flex-end">
       <Switch
-        checked={!isDark}
-        iconOff={<MoonIcon filled />}
-        iconOn={<SunIcon filled />}
-        size="xl"
-        onChange={({ target }) => setTheme(target.checked ? 'light' : 'dark')}
+        classNames={{
+          thumb: theme === 'light' ? 'bg-blue-90' : 'bg-blue-10',
+        }}
+        defaultSelected={theme === 'light'}
+        size="lg"
+        thumbIcon={
+          theme === 'light' ? (
+            <SunIcon filled className="text-onPrimaryContainer" />
+          ) : (
+            <MoonIcon filled className="text-onPrimaryContainer" />
+          )
+        }
+        onValueChange={(isChecked) => setTheme(isChecked ? 'light' : 'dark')}
       />
 
       {status === 'authenticated' && (
         <Button
-          auto
-          bordered
+          className="uppercase"
           color="primary"
-          css={{ textTransform: 'uppercase' }}
+          variant="bordered"
           onPress={() => {
             signOut({ callbackUrl: '/login', redirect: true }).catch(console.error);
           }}
