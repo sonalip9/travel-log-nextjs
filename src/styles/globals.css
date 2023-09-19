@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .display-large {
+    @apply text-6xl font-courgette font-normal leading-tight tracking-tighter;
+  }
+  .display-medium {
+      @apply text-5xl font-courgette font-normal leading-tight;
+  }
+  .display-small {
+      @apply text-4xl font-courgette font-normal leading-tight;
+  }
+
+  .headline-large {
+    @apply text-4xl font-nunito font-normal leading-tight uppercase;
+  }
+  .headline-medium {
+    @apply text-3xl font-nunito font-normal leading-tight uppercase;
+  }
+  .headline-small {
+    @apply text-2xl font-nunito font-normal uppercase;
+  }
+
+  .body-large {
+    @apply text-base font-nunito font-normal tracking-wide;
+  }
+  .body-medium {
+    @apply text-sm font-nunito font-normal tracking-wide;
+  }
+  .body-small {
+    @apply text-xs font-nunito font-normal;
+  }
+
+  .title-large {
+    @apply text-2xl font-nunito font-normal;
+  }
+  .title-medium {
+    @apply text-base font-nunito font-semibold tracking-wide;
+  }
+  .title-small {
+    @apply text-sm font-nunito font-semibold tracking-wide;
+  }
+
+  .label-large {
+    @apply text-sm font-nunito font-semibold;
+  }
+  .label-medium {
+    @apply text-xs font-nunito font-semibold tracking-wide;
+  }
+  .label-small {
+    @apply text-[0.6875rem] font-nunito font-semibold tracking-wide;
+  }
+}
