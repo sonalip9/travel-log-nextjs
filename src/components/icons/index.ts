@@ -6,3 +6,5 @@ export { SunIcon } from './Sun';
 export { MoonIcon } from './Moon';
 export type { IconProps } from './types';
 export { default as Close } from './Close';
+export { EyeFilled} from './EyeFilled';
+export {EyeSlashFilled} from './EyeSlashFilled';

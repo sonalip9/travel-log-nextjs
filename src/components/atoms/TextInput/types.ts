@@ -1,5 +1,4 @@
-import { InputProps } from '@nextui-org/react';
-import { TextareaProps } from '@nextui-org/react/types/textarea';
+import { InputProps, TextAreaProps } from '@nextui-org/react';
 import { ComponentType, PropsWithoutRef, RefAttributes } from 'react';
 
 export type TextInputProps = InputProps & {
@@ -9,7 +8,7 @@ export type TextInputProps = InputProps & {
   success?: boolean;
   warning?: boolean;
   error?: boolean;
-} & (({ multiline: true } & TextareaProps) | { multiline?: false });
+} & (({ multiline: true } & TextAreaProps) | { multiline?: false });
 
 export type InputComponent<T, P = Record<string, never>> = React.ForwardRefExoticComponent<
   PropsWithoutRef<P> & RefAttributes<T>
