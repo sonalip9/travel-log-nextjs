@@ -1,49 +1,59 @@
-import { Button, ButtonProps as NUIButtonProps, styled } from '@nextui-org/react';
-import { useMemo } from 'react';
+import {
+  extendVariants,
+  Button as NUIButton,
+  ButtonProps as NUIButtonProps,
+} from '@nextui-org/react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import { Loading } from '@components/Loading';
 
-export type ButtonProps = Omit<NUIButtonProps, 'color'> & {
-  color?: 'primary' | 'error';
+type ButtonProps = NUIButtonProps & {
   isLoading?: boolean;
-};
+  children?: React.ReactNode;
+} & { Group: React.ReactNode };
 
 function ButtonComponent({ isLoading, children, ...props }: ButtonProps) {
-  const StyledButton = useMemo(
-    () =>
-      styled(Button, {
-        variants: {
-          color: {
-            primary: { bg: '$primaryContainer', color: '$onPrimaryContainer' },
-            error: { bg: '$errorContainer', color: '$onErrorContainer' },
-          },
-          light: {
-            true: { bg: '$transparent', color: '$text' },
-          },
-        },
-        compoundVariants: [
-          {
-            color: 'primary',
-            light: true,
-            css: { bg: '$transparent', color: '$primary' },
-          },
-        ],
-        defaultVariants: {
-          color: 'primary',
-        },
-      }),
-    [],
-  );
-
   return (
-    <StyledButton {...props}>
-      {isLoading ? <Loading color="currentColor" size="sm" type="default" /> : children}
-    </StyledButton>
+    <NUIButton {...props}>{isLoading ? <Loading color="current" size="sm" /> : children}</NUIButton>
   );
 }
+const StyledButton = extendVariants(ButtonComponent, {
+  variants: {
+    color: {
+      error: 'text-onErrorContainer bg-errorContainer',
+    },
+    variant: {
+      bordered: '',
+      ghost: '',
+      light: '',
+      solid: '',
+    },
+  },
+  compoundVariants: [
+    {
+      color: 'primary',
+      variant: 'light',
+      className: 'text-primary bg-transparent',
+    },
+    {
+      color: 'primary',
+      variant: 'solid',
+      className: 'text-onPrimaryContainer bg-primaryContainer',
+    },
+    {
+      color: 'primary',
+      variant: 'ghost',
+      className:
+        'text-onPrimaryContainer hover:!bg-onPrimaryContainer hover:!text-primaryContainer border-onPrimaryContainer',
+    },
+  ],
+  defaultVariants: {
+    color: 'primary',
+  },
+});
+
+export type StyledButtonProps = ComponentPropsWithoutRef<typeof StyledButton>;
 
 ButtonComponent.displayName = 'Button';
 
-ButtonComponent.Group = Button.Group;
-
-export default ButtonComponent;
+export default StyledButton;

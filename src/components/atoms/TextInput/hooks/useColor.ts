@@ -14,14 +14,19 @@ export const useColor = (props: TextInputProps): TextInputProps => {
   switch (true) {
     case primary:
       color = 'primary';
+      break;
     case secondary:
       color = 'secondary';
+      break;
     case success:
       color = 'success';
+      break;
     case warning:
       color = 'warning';
+      break;
     case error:
-      color = 'error';
+      color = 'danger';
+      break;
     case def:
     default:
       color = 'default';

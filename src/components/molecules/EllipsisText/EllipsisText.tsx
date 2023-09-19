@@ -4,7 +4,7 @@ import { Container, ContainerProps } from '@components/Container';
 import { Text, TextProps } from '@components/Text';
 
 export type EllipsisTextProps = TextProps & {
-  containerStyle?: ContainerProps['css'];
+  containerStyle?: ContainerProps['className'];
 };
 
 /**
@@ -15,13 +15,13 @@ export type EllipsisTextProps = TextProps & {
  * @returns A JSX element
  */
 function EllipsisText({ containerStyle, ...textProps }: EllipsisTextProps) {
-  const textRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
   const containerRef = useRef<HTMLElement>(null);
 
   // The max lines defined in the props
   const maxLines: number | undefined = useMemo(
-    () => (typeof textProps.css?.maxLines === 'number' ? textProps.css.maxLines : undefined),
-    [textProps.css?.maxLines],
+    () => (typeof textProps?.maxLines === 'number' ? textProps.maxLines : undefined),
+    [textProps?.maxLines],
   );
 
   useLayoutEffect(() => {
@@ -96,8 +96,12 @@ function EllipsisText({ containerStyle, ...textProps }: EllipsisTextProps) {
   }, []);
 
   return (
-    <Container ref={containerRef} css={containerStyle}>
-      <Text ref={textRef} {...textProps} css={{ whiteSpace: 'pre-wrap', ...textProps.css }}>
+    <Container ref={containerRef} className={containerStyle}>
+      <Text
+        ref={textRef}
+        {...textProps}
+        className={`whitespace-pre-wrap ${textProps.className || ''}`}
+      >
         {textProps.children}
       </Text>
     </Container>

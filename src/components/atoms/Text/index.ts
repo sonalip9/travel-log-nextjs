@@ -1,2 +1,2 @@
 export { default as Text } from './Text';
-export type { StyledTextProps as TextProps } from './Text';
+export type { TextProps } from './Text';

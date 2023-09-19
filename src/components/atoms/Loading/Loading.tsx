@@ -1,4 +1,4 @@
-import { Loading as NUILoading, LoadingProps as NUILoadingProps } from '@nextui-org/react';
+import { Spinner as NUILoading, SpinnerProps as NUILoadingProps } from '@nextui-org/react';
 
 export type LoadingProps = NUILoadingProps;
 
