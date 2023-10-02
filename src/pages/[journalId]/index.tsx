@@ -34,27 +34,20 @@ export default function PagePages() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container css={{ height: '100vh', bg: '$background', gap: '$xl' }}>
-          <Container css={{ gap: '$sm', p: '$xxl', pb: '$none' }}>
-            <Container row alignItems="flex-start" css={{ mb: '$xl' }}>
-              <Text type="displayLarge">{journalDetails?.title}</Text>
-              <Container css={{ flex: 1 }} />
+        <Container className="min-w-full h-screen gap-xl bg-background">
+          <Container className="gap-sm p-xxl pb-none min-w-full">
+            <Container row alignItems="start" className="mb-xl min-w-full">
+              <Text className="display-large">{journalDetails?.title}</Text>
+              <Container className="flex-1 " />
               <NavBar />
             </Container>
-            <Text type="headlineSmall">{journalDetails?.description}</Text>
+            <Text className="headline-small normal-case">{journalDetails?.description}</Text>
           </Container>
 
           <Container
-            alignCenter
             row
-            css={{
-              flex: 1,
-              gap: '$xl',
-              overflowX: 'auto',
-              overflowY: 'none',
-              p: '$xxl',
-              pt: '$none',
-            }}
+            alignItems="center"
+            className="min-w-full gap-xl overflow-x-scroll overflow-y-none p-xxl pt-none"
           >
             {pages?.map((page) => (
               <Pages
@@ -66,10 +59,9 @@ export default function PagePages() {
             ))}
           </Container>
           <Button
-            auto
+            className="fixed bottom-xl right-xl font-semibold"
             color="primary"
-            css={{ position: 'fixed', bottom: '$xl', right: '$xl', fontWeight: '600' }}
-            icon={<AddCircleOutline />}
+            endContent={<AddCircleOutline />}
             size="lg"
             onPress={() => handler(true)}
           >

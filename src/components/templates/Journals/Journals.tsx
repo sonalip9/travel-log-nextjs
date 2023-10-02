@@ -26,37 +26,17 @@ function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
   return (
     <Card
       isPressable
-      css={{
-        display: 'flex',
-        flexDirection: 'column',
-        overflow: 'hidden',
-        bg: '$primary',
-        height: '515px',
-        width: '406px',
-        alignItems: 'flex-start',
-        borderRadius: '$none',
-        borderTopRightRadius: '$xxl',
-        borderBottomRightRadius: '$xxl',
-      }}
+      className="flex flex-col overflow-hidden bg-primary h-[515px] w-[406px] items-start rounded-none rounded-tr-xxl rounded-br-xxl"
       onMouseLeave={() => setIsActionVisible(false)}
       onMouseOver={() => setIsActionVisible(true)}
       onPress={() => onClick()}
     >
-      <Container
-        css={{
-          overflow: 'hidden',
-          alignItems: 'flex-start',
-          p: '$xl',
-          pl: '$3xl',
-          gap: '$xl',
-          flex: 1,
-        }}
-      >
-        <EllipsisText uppercase color="$onPrimary" css={{ maxLines: 2 }} type="headlineLarge">
+      <Container alignItems="start" className="overflow-hidden p-xl pl-3xl gap-xl flex-1">
+        <EllipsisText uppercase className="headline-large" color="$onPrimary" maxLines={2}>
           {journal.title}
         </EllipsisText>
 
-        <EllipsisText color="$onPrimary" css={{ maxLines: 10 }} type="bodyLarge">
+        <EllipsisText className="body-large" color="$onPrimary" maxLines={10}>
           {journal.description}
         </EllipsisText>
       </Container>

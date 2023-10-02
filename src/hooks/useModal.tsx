@@ -1,4 +1,5 @@
-import { useState, useReducer, Reducer, useCallback } from 'react';
+import { useDisclosure } from '@nextui-org/react';
+import { useReducer, Reducer, useCallback } from 'react';
 
 import { UserJournal } from '@defs/journals';
 import { Page } from '@defs/pages';
@@ -38,7 +39,7 @@ export const useModal = <
   createPayload: C,
   updatePayload: (travelLog: TravelLog) => U,
 ) => {
-  const [visible, setVisible] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [modalProps, dispatch] = useReducer<Reducer<C | U | undefined, ActionParam<C, U>>>(
     modalPropsAction,
@@ -52,15 +53,15 @@ export const useModal = <
       } else if (travelLog) {
         dispatch({ type: MODAL_PROPS_ACTIONS.UPDATE, payload: updatePayload(travelLog) });
       }
-      setVisible(true);
+      onOpen();
     },
-    [createPayload, updatePayload],
+    [createPayload, onOpen, updatePayload],
   );
 
   const closeModal = () => {
     dispatch({ type: MODAL_PROPS_ACTIONS.RESET });
-    setVisible(false);
+    onClose();
   };
 
-  return { visible, modalProps, openModal, closeModal };
+  return { visible: isOpen, modalProps, openModal, closeModal };
 };

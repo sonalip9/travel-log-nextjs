@@ -6,7 +6,9 @@ export type ExpandImageProps = {
   onHoverStyles?: string;
 } & ImageProps;
 
-const hoverWrapperStyles = 'w-full h-full fixed z-999 top-0 left-0';
+const hoverWrapperStyles = 'w-auto h-auto fixed z-[999] top-0 left-0';
+const hoverImageStyles =
+  'transition-all group-hover:ease-in-out group-hover:duration-200 group-hover:object-contain group-hover:aspect-auto group-hover:scale-[0.85]';
 
 function ExpandImage({
   onHoverStyles,
@@ -17,25 +19,36 @@ function ExpandImage({
   const hoverContainerStyles = useMemo(
     () =>
       `${hoverWrapperStyles} ${onHoverStyles || ''}`
+        .trimEnd()
         .split(' ')
         .map((style) => (style.startsWith('hover:') ? style : `hover:${style}`))
         .join(' '),
     [onHoverStyles],
   );
 
+  const hoverImgStyles = useMemo(
+    () =>
+      `${hoverImageStyles} ${(img as string) || ''}`
+        .trimEnd()
+        .split(' ')
+        .map((style) => (style.startsWith('group-hover:') ? style : `group-hover:${style}`))
+        .join(' '),
+    [img],
+  );
+
   return (
     <Image
       alt={alt}
       classNames={{
-        img: `aspect-square object-center w-auto ${img as string}`,
-        wrapper: `m-none flex-1 aspect-square  ${hoverContainerStyles} ${wrapper as string}`,
+        img: `aspect-square object-cover w-auto ${img as string} ${hoverImgStyles}`,
+        wrapper: `peer group m-none flex-1 aspect-square ${hoverContainerStyles} ${
+          wrapper as string
+        }`,
         ...rest,
       }}
       {...props}
     />
   );
 }
-
-// [:hover>img]:aspect-auto [:hover>img]:object-contain [:hover>img]:scale-[85] [:hover>img]:transition-all [:hover>img]:ease-in-out [:hover>img]:duration-200
 
 export default ExpandImage;
