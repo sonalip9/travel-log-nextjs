@@ -25,31 +25,15 @@ export default function Home() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container
-          css={{
-            height: '100vh',
-            width: '100vw',
-            p: '$xxl',
-            bg: '$background',
-          }}
-        >
-          <Container row alignItems="flex-start" css={{ mb: '$xl' }}>
-            <Text css={{ m: '$md', flex: 1 }} type="displayLarge">
-              Journals
-            </Text>
+        <Container className="min-h-full min-w-full p-xxl bg-background">
+          <Container row alignContent="flex-start" className=" mb-xl min-w-full">
+            <Text className="display-large m-md flex-1">Journals</Text>
             <NavBar />
           </Container>
 
           <Container
-            alignCenter
             row
-            css={{
-              height: 'auto',
-              minWidth: '100%',
-              gridGap: '$3xl',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(406px, 1fr))',
-            }}
-            display="grid"
+            className="h-auto min-w-full grid gap-3xl gap-y-3xl grid-cols-[repeat(auto-fit,minmax(406px,1fr))]"
           >
             {journals?.map((journal) => (
               <Journals
@@ -62,11 +46,11 @@ export default function Home() {
           </Container>
 
           <Button
-            auto
+            className="fixed bottom-xl right-xl"
             color="primary"
-            css={{ position: 'fixed', bottom: '$xl', right: '$xl', fontWeight: '600' }}
-            icon={<AddCircleOutline />}
+            endContent={<AddCircleOutline />}
             size="lg"
+            variant="solid"
             onPress={() => openModal(true)}
           >
             Journal

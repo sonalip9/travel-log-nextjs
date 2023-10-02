@@ -1,3 +1,4 @@
+import { ModalContent } from '@nextui-org/react';
 import { useReducer, useState } from 'react';
 
 import { Button } from '@components/Button';
@@ -53,72 +54,74 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
   const [titleIsValid, setTitleIsValid] = useState<boolean | undefined>();
 
   return (
-    <Modal open={visible} onClose={onCancel}>
-      <Container
-        as="form"
-        css={{ px: '$lg', pt: '$lg', gap: '$xxl' }}
-        onSubmit={() => {
-          if (!journal) return onCancel();
-          if (props.isCreate) {
-            props.onCreate(journal);
-          } else {
-            props.onUpdate(props.updateJournal.journalId, journal);
-          }
-        }}
-      >
-        <Text uppercase type="headlineSmall">
-          Create Journal
-        </Text>
-        <TextInput
-          bordered
-          fullWidth
-          required
-          color={titleIsValid === false ? 'error' : 'primary'}
-          css={{ alignItems: 'flex-start' }}
-          error={titleIsValid === false}
-          initialValue={'updateJournal' in props ? props.updateJournal?.title : ''}
-          label="Title"
-          placeholder="Please enter a title"
-          type="text"
-          value={journal?.title}
-          onChange={({ target }) => {
-            setTitleIsValid(undefined);
-            setJournal({ type: UPDATE_JOURNAL_ACTIONS.UPDATE_TITLE, payload: target.value });
+    <Modal hideCloseButton isOpen={visible} onClose={onCancel}>
+      <ModalContent>
+        <Container
+          as="form"
+          className="px-lg pt-lg gap-xxl"
+          onSubmit={() => {
+            if (!journal) return onCancel();
+            if (props.isCreate) {
+              props.onCreate(journal);
+            } else {
+              props.onUpdate(props.updateJournal.journalId, journal);
+            }
           }}
-          onInvalid={(event) => {
-            event.preventDefault();
-            event.currentTarget.focus();
-            setTitleIsValid(false);
-          }}
-        />
-        <TextInput
-          bordered
-          fullWidth
-          multiline
-          primary
-          css={{ alignItems: 'flex-start' }}
-          initialValue={'updateJournal' in props ? props.updateJournal?.description : ''}
-          label="Description"
-          maxRows={5}
-          placeholder="Please enter a description"
-          value={journal?.description}
-          onChange={({ target }) =>
-            setJournal({
-              type: UPDATE_JOURNAL_ACTIONS.UPDATE_DESCRIPTION,
-              payload: target.value,
-            })
-          }
-        />
+        >
+          <Text uppercase className="headline-small">
+            Create Journal
+          </Text>
+          <TextInput
+            fullWidth
+            required
+            className="items-start"
+            color={titleIsValid === false ? 'danger' : 'primary'}
+            defaultValue={'updateJournal' in props ? props.updateJournal?.title : ''}
+            error={titleIsValid === false}
+            label="Title"
+            placeholder="Please enter a title"
+            type="text"
+            value={journal?.title}
+            variant="bordered"
+            onChange={({ target }) => {
+              setTitleIsValid(undefined);
+              setJournal({ type: UPDATE_JOURNAL_ACTIONS.UPDATE_TITLE, payload: target.value });
+            }}
+            onInvalid={(event) => {
+              event.preventDefault();
+              event.currentTarget.focus();
+              setTitleIsValid(false);
+            }}
+          />
+          <TextInput
+            fullWidth
+            multiline
+            primary
+            className="items-start"
+            defaultValue={'updateJournal' in props ? props.updateJournal?.description : ''}
+            label="Description"
+            maxRows={5}
+            placeholder="Please enter a description"
+            value={journal?.description}
+            variant="bordered"
+            onChange={({ target }) =>
+              setJournal({
+                type: UPDATE_JOURNAL_ACTIONS.UPDATE_DESCRIPTION,
+                payload: target.value,
+              })
+            }
+          />
 
-        <Container row css={{ p: '$xl', gap: '$sm' }} justify="flex-end">
-          <Button auto light color="primary" onPress={onCancel}>
-            Cancel
-          </Button>
-          <Button auto light color="primary" type="submit">
-            {props.isCreate ? 'Create' : 'Update'}
-          </Button>
+          <Container row className="p-xl gap-sm" justifyContent="flex-end">
+            <Button variant="light" onPress={onCancel}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="light">
+              {props.isCreate ? 'Create' : 'Update'}
+            </Button>
+          </Container>
         </Container>
-      </Container>
+      </ModalContent>
     </Modal>
   );
 }

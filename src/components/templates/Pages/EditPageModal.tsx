@@ -1,3 +1,4 @@
+import { ModalContent } from '@nextui-org/react';
 import { useReducer, useRef, useState } from 'react';
 
 import { Close } from '@/components/icons';
@@ -74,151 +75,153 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
   const ref = useRef<HTMLInputElement>(null);
 
   return (
-    <Modal open={visible} onClose={onCancel}>
-      <Container
-        as="form"
-        css={{ px: '$lg', pt: '$lg', gap: '$lg' }}
-        onSubmit={() => {
-          if (!page) return onCancel();
-          if (props.isCreate) {
-            if (page.photo && !(page.photo instanceof File)) {
-              photoObjectToFile(page.photo)
-                .then((file) => props.onCreate({ ...page, photo: file }))
-                .catch(console.error);
-              return;
+    <Modal isOpen={visible} onClose={onCancel}>
+      <ModalContent>
+        <Container
+          as="form"
+          className="px-lg pt-lg gap-lg"
+          onSubmit={() => {
+            if (!page) return onCancel();
+            if (props.isCreate) {
+              if (page.photo && !(page.photo instanceof File)) {
+                photoObjectToFile(page.photo)
+                  .then((file) => props.onCreate({ ...page, photo: file }))
+                  .catch(console.error);
+                return;
+              }
+              // The below spread of object is required to avoid ts error
+              props.onCreate({ ...page, photo: page.photo });
+            } else {
+              if (page.photo && !(page.photo instanceof File)) {
+                photoObjectToFile(page.photo)
+                  .then((file) => {
+                    props.onUpdate(props.updatePage.pageId, { ...page, photo: file });
+                  })
+                  .catch(console.error);
+                return;
+              }
+              // The below spread of object is required to avoid ts error
+              props.onUpdate(props.updatePage.pageId, { ...page, photo: page.photo });
             }
-            // The below spread of object is required to avoid ts error
-            props.onCreate({ ...page, photo: page.photo });
-          } else {
-            if (page.photo && !(page.photo instanceof File)) {
-              photoObjectToFile(page.photo)
-                .then((file) => {
-                  props.onUpdate(props.updatePage.pageId, { ...page, photo: file });
-                })
-                .catch(console.error);
-              return;
-            }
-            // The below spread of object is required to avoid ts error
-            props.onUpdate(props.updatePage.pageId, { ...page, photo: page.photo });
-          }
-        }}
-      >
-        <Text uppercase type="headlineSmall">
-          Create Page
-        </Text>
-        <TextInput
-          bordered
-          fullWidth
-          required
-          color={titleIsValid === false ? 'error' : 'primary'}
-          css={{ alignItems: 'flex-start' }}
-          error={titleIsValid === false}
-          initialValue={'updatePage' in props ? props.updatePage?.title : ''}
-          label="Title"
-          placeholder="Please enter a title"
-          type="text"
-          value={page?.title}
-          onChange={({ target }) => {
-            setTitleIsValid(undefined);
-            setPage({ type: UPDATE_PAGE_ACTIONS.UPDATE_TITLE, payload: target.value });
           }}
-          onInvalid={(event) => {
-            event.preventDefault();
-            event.currentTarget.focus();
-            setTitleIsValid(false);
-          }}
-        />
-
-        <TextInput
-          bordered
-          fullWidth
-          color="primary"
-          css={{ alignItems: 'flex-start' }}
-          label="Date"
-          type="date"
-          value={formatDateTime(new Date(page?.date ?? new Date()), 'YYYY-MM-DD')}
-          onChange={({ target }) =>
-            setPage({
-              type: UPDATE_PAGE_ACTIONS.UPDATE_DATE,
-              payload: target.value,
-            })
-          }
-        />
-
-        <Container flex css={{ gap: '$xs' }}>
+        >
+          <Text uppercase className="headline-small">
+            Create Page
+          </Text>
           <TextInput
-            ref={ref}
-            bordered
-            accept="image/*"
-            color="primary"
-            css={{
-              alignItems: 'flex-start',
-              verticalAlign: 'bottom',
-              input: { height: 'fit-content' },
-            }}
-            label="Photo"
-            type="file"
+            fullWidth
+            required
+            className="items-start"
+            color={titleIsValid === false ? 'danger' : 'primary'}
+            defaultValue={'updatePage' in props ? props.updatePage?.title : ''}
+            error={titleIsValid === false}
+            label="Title"
+            placeholder="Please enter a title"
+            type="text"
+            value={page?.title}
+            variant="bordered"
             onChange={({ target }) => {
-              const photo = (target as HTMLInputElement).files?.[0];
-              if (!photo) return;
-
-              setPage({
-                type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
-                payload: photo,
-              });
+              setTitleIsValid(undefined);
+              setPage({ type: UPDATE_PAGE_ACTIONS.UPDATE_TITLE, payload: target.value });
+            }}
+            onInvalid={(event) => {
+              event.preventDefault();
+              event.currentTarget.focus();
+              setTitleIsValid(false);
             }}
           />
-          {page?.photo && (
-            <Container row css={{ mt: '$md', maxW: '40%', aspectRatio: '1:1.18' }}>
-              <ExpandImage
-                alt="Photo"
-                src={getSrcForImage(page.photo)}
-                onHoverStyles={{ '&+ button': { visibility: 'hidden' } }}
-              />
-              <Button
-                rounded
-                color="error"
-                css={{ top: -10, right: 10, minWidth: 'auto', p: '$xs', aspectRatio: 1 }}
-                icon={<Close size={16} />}
-                size="xs"
-                onPress={() => {
-                  setPage({
-                    type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
-                  });
-                }}
-              />
-            </Container>
-          )}
-        </Container>
 
-        <TextInput
-          bordered
-          fullWidth
-          multiline
-          color="primary"
-          css={{ alignItems: 'flex-start' }}
-          initialValue={'updatePage' in props ? props.updatePage?.content : ''}
-          label="Description"
-          maxRows={5}
-          placeholder="Please enter a description"
-          value={page?.content}
-          onChange={({ target }) =>
-            setPage({
-              type: UPDATE_PAGE_ACTIONS.UPDATE_DESCRIPTION,
-              payload: target.value,
-            })
-          }
-        />
+          <TextInput
+            fullWidth
+            required
+            className="items-start"
+            color={titleIsValid === false ? 'danger' : 'primary'}
+            defaultValue={'updatePage' in props ? props.updatePage?.title : ''}
+            error={titleIsValid === false}
+            label="Date"
+            type="date"
+            value={formatDateTime(new Date(page?.date ?? new Date()), 'YYYY-MM-DD')}
+            variant="bordered"
+            onChange={({ target }) =>
+              setPage({
+                type: UPDATE_PAGE_ACTIONS.UPDATE_DATE,
+                payload: target.value,
+              })
+            }
+          />
 
-        <Container row css={{ p: '$xl', gap: '$sm' }} justify="flex-end">
-          <Button auto light color="primary" onPress={onCancel}>
-            Cancel
-          </Button>
-          <Button auto light color="primary" type="submit">
-            {props.isCreate ? 'Create' : 'Update'}
-          </Button>
+          <Container flex className="gap-xs">
+            <TextInput
+              ref={ref}
+              accept="image/*"
+              className="items-start"
+              classNames={{ input: 'pb-0 mb-sm', inputWrapper: 'h-fit' }}
+              color="primary"
+              defaultValue=""
+              label="Photo"
+              placeholder="Click to add a photo"
+              type="file"
+              variant="bordered"
+              onChange={({ target }) => {
+                const photo = (target as HTMLInputElement).files?.[0];
+                if (!photo) return;
+
+                setPage({
+                  type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
+                  payload: photo,
+                });
+              }}
+            />
+            {page?.photo && (
+              <Container row className="mt-md max-w-[40%] aspect-[1:1.18]">
+                <ExpandImage
+                  alt="Photo"
+                  src={getSrcForImage(page.photo)}
+                  // OnHoverStyles={{ '&+ button': { visibility: 'hidden' } }}
+                />
+                <Button
+                  className="-top-[10px] right-[10px] aspect-square rounded-full min-w-0 h-lg px-none z-10 peer-hover:hidden"
+                  color="danger"
+                  endContent={<Close size={16} />}
+                  onPress={() => {
+                    setPage({
+                      type: UPDATE_PAGE_ACTIONS.UPDATE_IMAGE,
+                    });
+                  }}
+                />
+              </Container>
+            )}
+          </Container>
+
+          <TextInput
+            fullWidth
+            multiline
+            className="items-start"
+            color="primary"
+            defaultValue={'updatePage' in props ? props.updatePage?.content : ''}
+            label="Description"
+            maxRows={5}
+            placeholder="Please enter a description"
+            value={page?.content}
+            variant="bordered"
+            onChange={({ target }) =>
+              setPage({
+                type: UPDATE_PAGE_ACTIONS.UPDATE_DESCRIPTION,
+                payload: target.value,
+              })
+            }
+          />
+
+          <Container row className="p-xl gap-sm" justifyContent="flex-end">
+            <Button color="primary" variant="light" onPress={onCancel}>
+              Cancel
+            </Button>
+            <Button color="primary" type="submit" variant="light">
+              {props.isCreate ? 'Create' : 'Update'}
+            </Button>
+          </Container>
         </Container>
-      </Container>
+      </ModalContent>
     </Modal>
   );
 }

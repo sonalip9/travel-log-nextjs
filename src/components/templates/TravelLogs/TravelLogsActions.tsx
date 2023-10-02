@@ -12,32 +12,24 @@ type Button = {
 type TravelLogsActionsProps = {
   isVisible: boolean;
   actions: Button[];
-  containerStyle?: ContainerProps['css'];
+  containerStyle?: ContainerProps['className'];
 };
 
-function TravelLogsActions({ isVisible, actions, containerStyle }: TravelLogsActionsProps) {
+function TravelLogsActions({ isVisible, actions, containerStyle = '' }: TravelLogsActionsProps) {
   return (
     <Container
-
       row
-      css={{
-        gap: '$md',
-        bg: '$onPrimary',
-        position: 'relative',
-        p: '$md',
-        bottom: isVisible ? 0 : -100,
-        ...containerStyle,
-        transition: 'bottom 0.3s ease-in-out',
-      }}
+      className={`gap-md bg-onPrimary relative p-md ${
+        isVisible ? 'bottom-0' : '-bottom-96'
+      } transition-bottom duration-300 ease-in-out ${containerStyle}}`}
     >
       {actions.map((action) => (
         <Button
           key={action.label}
-          auto
-          light
+          className="flex-1 flex"
           color="primary"
-          css={{ display: 'flex', flex: 1 }}
-          icon={action.icon}
+          endContent={action.icon}
+          variant="light"
           onPress={action.onPress}
         >
           {action.label}

@@ -1,4 +1,4 @@
-import { Column, Container } from '@components/Container';
+import { Container } from '@components/Container';
 import { EllipsisText } from '@components/EllipsisText';
 import { Image } from '@components/Image';
 import { Text } from '@components/Text';
@@ -14,50 +14,27 @@ export type PagesProps = {
 };
 function Pages({ page, onDelete, onUpdate }: PagesProps) {
   return (
-    <Column
-      column
-      flex
-      css={{
-        borderWidth: '1px',
-        borderColor: '$outlineVariant',
-        borderStyle: 'solid',
-        borderRadius: '$md',
-        minWidth: '405px',
-        height: '100%',
-        overflow: 'hidden',
-      }}
-      span={3}
-    >
-      <Container css={{ gap: '$md', p: '$md' }}>
-        <EllipsisText containerStyle={{ maxH: 44 }} type="headlineLarge">
+    <Container className="border-1 border-outlineVariant border-solid rounded-md min-w-[405px] h-full overflow-hidden">
+      <Container className="gap-md p-md">
+        <EllipsisText className="headline-large" containerStyle="max-H-[44]">
           {page.title}
         </EllipsisText>
-        <Text type="titleLarge">{new Date(page.date).toDateString()}</Text>
+        <Text className="title-large">{new Date(page.date).toDateString()}</Text>
       </Container>
 
       {page.photo && (
         <Image
           alt="Photo"
-          containerCss={{ flex: 1 }}
-          css={{ aspectRatio: '1.5' }}
-          objectFit="cover"
+          classNames={{
+            wrapper: 'flex-1 px-md',
+            img: 'aspect-[1.5] object-cover',
+          }}
           src={getSrcForImage(page.photo)}
         />
       )}
 
-      <Container
-        css={{
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          scrollPadding: '$none',
-          maxHeight: '100%',
-          flex: 2,
-          p: '$md',
-        }}
-      >
-        <Text css={{ whiteSpace: 'preserve wrap' }} type="bodyLarge">
-          {page.content}
-        </Text>
+      <Container className="overflow-y-auto overflow-x-hidden scroll-padding-none max-h-full flex-[2] p-md">
+        <Text className="whitespace-pre-wrap body-large">{page.content}</Text>
       </Container>
 
       <TravelLogsActions
@@ -66,9 +43,9 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
           { icon: <EditOutline />, label: 'Edit', onPress: onUpdate },
           { icon: <DeleteOutline />, label: 'Delete', onPress: onDelete },
         ]}
-        containerStyle={{ bg: '$primaryContainer' }}
+        containerStyle="bg-primaryContainer"
       />
-    </Column>
+    </Container>
   );
 }
 
