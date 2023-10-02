@@ -34,8 +34,8 @@ export default function PagePages() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container className="min-w-full h-screen gap-xl bg-background">
-          <Container className="gap-sm p-xxl pb-none min-w-full">
+        <Container className="h-screen min-w-full gap-xl bg-background">
+          <Container className="min-w-full gap-sm p-xxl pb-none">
             <Container row alignItems="start" className="mb-xl min-w-full">
               <Text className="display-large">{journalDetails?.title}</Text>
               <Container className="flex-1 " />
@@ -47,7 +47,7 @@ export default function PagePages() {
           <Container
             row
             alignItems="center"
-            className="min-w-full gap-xl overflow-x-scroll overflow-y-none p-xxl pt-none"
+            className="overflow-y-none min-w-full gap-xl overflow-x-scroll p-xxl pt-none"
           >
             {pages?.map((page) => (
               <Pages

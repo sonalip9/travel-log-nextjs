@@ -47,7 +47,7 @@ export default function Login() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container className="min-w-full min-h-screen bg-background">
+        <Container className="min-h-screen min-w-full bg-background">
           <Container className="min-w-full" placeItems="end">
             <NavBar />
           </Container>
@@ -56,7 +56,7 @@ export default function Login() {
 
           <Container
             alignSelf="center"
-            className="bg-gray-20 inline-flex w-[80vw] flex-wrap gap-lg rounded-md p-xl sm:w-[50vw] md:w-[40vw]"
+            className="inline-flex w-[80vw] flex-wrap gap-lg rounded-md bg-gray-20 p-xl sm:w-[50vw] md:w-[40vw]"
             placeItems="center"
           >
             <ButtonGroup>

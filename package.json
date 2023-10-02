@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "yarn prettier -w ./src",
     "prepare": "husky install",
     "postinstall": "patch-package"
   },
@@ -40,7 +42,8 @@
     "patch-package": "^6.5.1",
     "postcss": "^8.4.28",
     "postinstall-postinstall": "^2.1.0",
-    "prettier": "^2.8.7",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
     "tailwindcss": "^3.3.3",
     "typescript": "5.0.2"
   },

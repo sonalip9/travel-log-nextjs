@@ -1,6 +1,12 @@
-import { IconProps } from "./types";
+import { IconProps } from './types';
 
-export const EyeSlashFilled = ({ fill = 'currentColor', size, height, width, ...props }: IconProps) => (
+export const EyeSlashFilled = ({
+  fill = 'currentColor',
+  size,
+  height,
+  width,
+  ...props
+}: IconProps) => (
   <svg
     aria-hidden="true"
     fill="none"

@@ -19,14 +19,14 @@ function TravelLogsActions({ isVisible, actions, containerStyle = '' }: TravelLo
   return (
     <Container
       row
-      className={`gap-md bg-onPrimary relative p-md ${
+      className={`relative gap-md bg-onPrimary p-md ${
         isVisible ? 'bottom-0' : '-bottom-96'
       } transition-bottom duration-300 ease-in-out ${containerStyle}}`}
     >
       {actions.map((action) => (
         <Button
           key={action.label}
-          className="flex-1 flex"
+          className="flex flex-1"
           color="primary"
           endContent={action.icon}
           variant="light"

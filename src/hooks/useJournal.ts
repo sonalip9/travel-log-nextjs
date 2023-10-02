@@ -28,7 +28,7 @@ export const useJournal = () => {
         onUpdate: (journalId, updateJournal) => {
           onUpdateTravelLog(patchUpdateJournal(journalId, updateJournal));
         },
-      } as UpdateProps),
+      }) as UpdateProps,
   );
 
   return {

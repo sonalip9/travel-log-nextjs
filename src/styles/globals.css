@@ -4,52 +4,52 @@
 
 @layer components {
   .display-large {
-    @apply text-6xl font-courgette font-normal leading-tight tracking-tighter;
+    @apply font-courgette text-6xl font-normal leading-tight tracking-tighter;
   }
   .display-medium {
-      @apply text-5xl font-courgette font-normal leading-tight;
+    @apply font-courgette text-5xl font-normal leading-tight;
   }
   .display-small {
-      @apply text-4xl font-courgette font-normal leading-tight;
+    @apply font-courgette text-4xl font-normal leading-tight;
   }
 
   .headline-large {
-    @apply text-4xl font-nunito font-normal leading-tight uppercase;
+    @apply font-nunito text-4xl font-normal uppercase leading-tight;
   }
   .headline-medium {
-    @apply text-3xl font-nunito font-normal leading-tight uppercase;
+    @apply font-nunito text-3xl font-normal uppercase leading-tight;
   }
   .headline-small {
-    @apply text-2xl font-nunito font-normal uppercase;
+    @apply font-nunito text-2xl font-normal uppercase;
   }
 
   .body-large {
-    @apply text-base font-nunito font-normal tracking-wide;
+    @apply font-nunito text-base font-normal tracking-wide;
   }
   .body-medium {
-    @apply text-sm font-nunito font-normal tracking-wide;
+    @apply font-nunito text-sm font-normal tracking-wide;
   }
   .body-small {
-    @apply text-xs font-nunito font-normal;
+    @apply font-nunito text-xs font-normal;
   }
 
   .title-large {
-    @apply text-2xl font-nunito font-normal;
+    @apply font-nunito text-2xl font-normal;
   }
   .title-medium {
-    @apply text-base font-nunito font-semibold tracking-wide;
+    @apply font-nunito text-base font-semibold tracking-wide;
   }
   .title-small {
-    @apply text-sm font-nunito font-semibold tracking-wide;
+    @apply font-nunito text-sm font-semibold tracking-wide;
   }
 
   .label-large {
-    @apply text-sm font-nunito font-semibold;
+    @apply font-nunito text-sm font-semibold;
   }
   .label-medium {
-    @apply text-xs font-nunito font-semibold tracking-wide;
+    @apply font-nunito text-xs font-semibold tracking-wide;
   }
   .label-small {
-    @apply text-[0.6875rem] font-nunito font-semibold tracking-wide;
+    @apply font-nunito text-[0.6875rem] font-semibold tracking-wide;
   }
 }

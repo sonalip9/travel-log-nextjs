@@ -25,7 +25,7 @@ export default function Home() {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <main>
-        <Container className="min-h-full min-w-full p-xxl bg-background">
+        <Container className="min-h-full min-w-full bg-background p-xxl">
           <Container row alignContent="flex-start" className=" mb-xl min-w-full">
             <Text className="display-large m-md flex-1">Journals</Text>
             <NavBar />
@@ -33,7 +33,7 @@ export default function Home() {
 
           <Container
             row
-            className="h-auto min-w-full grid gap-3xl gap-y-3xl grid-cols-[repeat(auto-fit,minmax(406px,1fr))]"
+            className="grid h-auto min-w-full grid-cols-[repeat(auto-fit,minmax(406px,1fr))] gap-3xl gap-y-3xl"
           >
             {journals?.map((journal) => (
               <Journals
