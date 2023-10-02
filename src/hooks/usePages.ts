@@ -69,7 +69,7 @@ export const usePages = () => {
   } = useModal(
     { isCreate: true, onCreate: onCreatePage } as CreateProps,
     (page: Page) =>
-      ({ isCreate: false as const, onUpdate: onUpdatePage, updatePage: page } as UpdateProps),
+      ({ isCreate: false as const, onUpdate: onUpdatePage, updatePage: page }) as UpdateProps,
   );
 
   return {

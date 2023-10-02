@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react';
 
 import { useColor } from './hooks';
@@ -8,28 +6,27 @@ import { TextInputProps } from './types';
 
 import { EyeFilled, EyeSlashFilled } from '@icons';
 
-
 const Password = (props: TextInputProps) => {
-    const propsWithColor = useColor(props);
-    const [isVisible, setIsVisible] = useState(false);
+  const propsWithColor = useColor(props);
+  const [isVisible, setIsVisible] = useState(false);
 
-    const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
-    return (
-      <TextInput
-        endContent={
-          <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
-            {isVisible ? (
-              <EyeSlashFilled className="text-2xl text-default-400 pointer-events-none" />
-            ) : (
-              <EyeFilled className="text-2xl text-default-400 pointer-events-none" />
-            )}
-          </button>
-        }
-        {...propsWithColor}
-        type={isVisible ? "text" : "password"}
-      />
-    );
-  }
+  return (
+    <TextInput
+      endContent={
+        <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+          {isVisible ? (
+            <EyeSlashFilled className="pointer-events-none text-2xl text-default-400" />
+          ) : (
+            <EyeFilled className="pointer-events-none text-2xl text-default-400" />
+          )}
+        </button>
+      }
+      {...propsWithColor}
+      type={isVisible ? 'text' : 'password'}
+    />
+  );
+};
 
-  export default Password;
+export default Password;

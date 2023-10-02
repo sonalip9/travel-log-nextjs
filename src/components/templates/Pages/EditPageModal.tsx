@@ -79,7 +79,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
       <ModalContent>
         <Container
           as="form"
-          className="px-lg pt-lg gap-lg"
+          className="gap-lg px-lg pt-lg"
           onSubmit={() => {
             if (!page) return onCancel();
             if (props.isCreate) {
@@ -173,14 +173,14 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
               }}
             />
             {page?.photo && (
-              <Container row className="mt-md max-w-[40%] aspect-[1:1.18]">
+              <Container row className="aspect-[1:1.18] mt-md max-w-[40%]">
                 <ExpandImage
                   alt="Photo"
                   src={getSrcForImage(page.photo)}
                   // OnHoverStyles={{ '&+ button': { visibility: 'hidden' } }}
                 />
                 <Button
-                  className="-top-[10px] right-[10px] aspect-square rounded-full min-w-0 h-lg px-none z-10 peer-hover:hidden"
+                  className="-top-[10px] right-[10px] z-10 aspect-square h-lg min-w-0 rounded-full px-none peer-hover:hidden"
                   color="danger"
                   endContent={<Close size={16} />}
                   onPress={() => {
@@ -212,7 +212,7 @@ function EditPageModal({ onCancel, visible, ...props }: EditPageModalProps) {
             }
           />
 
-          <Container row className="p-xl gap-sm" justifyContent="flex-end">
+          <Container row className="gap-sm p-xl" justifyContent="flex-end">
             <Button color="primary" variant="light" onPress={onCancel}>
               Cancel
             </Button>

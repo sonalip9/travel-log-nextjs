@@ -14,7 +14,7 @@ export type PagesProps = {
 };
 function Pages({ page, onDelete, onUpdate }: PagesProps) {
   return (
-    <Container className="border-1 border-outlineVariant border-solid rounded-md min-w-[405px] h-full overflow-hidden">
+    <Container className="h-full min-w-[405px] overflow-hidden rounded-md border-1 border-solid border-outlineVariant">
       <Container className="gap-md p-md">
         <EllipsisText className="headline-large" containerStyle="max-H-[44]">
           {page.title}
@@ -33,8 +33,8 @@ function Pages({ page, onDelete, onUpdate }: PagesProps) {
         />
       )}
 
-      <Container className="overflow-y-auto overflow-x-hidden scroll-padding-none max-h-full flex-[2] p-md">
-        <Text className="whitespace-pre-wrap body-large">{page.content}</Text>
+      <Container className="scroll-padding-none max-h-full flex-[2] overflow-y-auto overflow-x-hidden p-md">
+        <Text className="body-large whitespace-pre-wrap">{page.content}</Text>
       </Container>
 
       <TravelLogsActions

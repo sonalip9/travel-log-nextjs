@@ -58,7 +58,7 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
       <ModalContent>
         <Container
           as="form"
-          className="px-lg pt-lg gap-xxl"
+          className="gap-xxl px-lg pt-lg"
           onSubmit={() => {
             if (!journal) return onCancel();
             if (props.isCreate) {
@@ -112,7 +112,7 @@ function EditJournalModal({ onCancel, visible, ...props }: EditJournalModalProps
             }
           />
 
-          <Container row className="p-xl gap-sm" justifyContent="flex-end">
+          <Container row className="gap-sm p-xl" justifyContent="flex-end">
             <Button variant="light" onPress={onCancel}>
               Cancel
             </Button>

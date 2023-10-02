@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from './types';
 
 export const EyeFilled = ({ fill = 'currentColor', size, height, width, ...props }: IconProps) => (
   <svg

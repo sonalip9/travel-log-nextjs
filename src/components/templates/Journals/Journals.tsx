@@ -26,12 +26,12 @@ function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
   return (
     <Card
       isPressable
-      className="flex flex-col overflow-hidden bg-primary h-[515px] w-[406px] items-start rounded-none rounded-tr-xxl rounded-br-xxl"
+      className="flex h-[515px] w-[406px] flex-col items-start overflow-hidden rounded-none rounded-br-xxl rounded-tr-xxl bg-primary"
       onMouseLeave={() => setIsActionVisible(false)}
       onMouseOver={() => setIsActionVisible(true)}
       onPress={() => onClick()}
     >
-      <Container alignItems="start" className="overflow-hidden p-xl pl-3xl gap-xl flex-1">
+      <Container alignItems="start" className="flex-1 gap-xl overflow-hidden p-xl pl-3xl">
         <EllipsisText uppercase className="headline-large" color="$onPrimary" maxLines={2}>
           {journal.title}
         </EllipsisText>
