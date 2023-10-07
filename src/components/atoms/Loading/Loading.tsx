@@ -1,3 +1,4 @@
+'use client';
 import { Spinner as NUILoading, SpinnerProps as NUILoadingProps } from '@nextui-org/react';
 
 export type LoadingProps = NUILoadingProps;

@@ -1,3 +1,4 @@
+'use client';
 import { Modal as NUIModal, ModalProps as NUIModalProps } from '@nextui-org/react';
 
 export type ModalProps = NUIModalProps;

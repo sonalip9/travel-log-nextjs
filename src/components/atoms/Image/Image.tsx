@@ -1,3 +1,4 @@
+'use client';
 import { Image as NUIImage, ImageProps as NUIImageProps } from '@nextui-org/react';
 
 export type ImageProps = NUIImageProps;

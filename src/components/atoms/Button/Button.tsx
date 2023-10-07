@@ -1,3 +1,4 @@
+'use client';
 import {
   extendVariants,
   Button as NUIButton,

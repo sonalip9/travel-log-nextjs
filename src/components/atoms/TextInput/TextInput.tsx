@@ -1,3 +1,4 @@
+'use client';
 import { Input, Textarea } from '@nextui-org/react';
 import { forwardRef } from 'react';
 

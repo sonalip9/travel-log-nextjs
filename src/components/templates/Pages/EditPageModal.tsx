@@ -1,3 +1,4 @@
+'use client';
 import { ModalContent } from '@nextui-org/react';
 import { useReducer, useRef, useState } from 'react';
 
