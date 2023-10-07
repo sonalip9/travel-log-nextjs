@@ -1,3 +1,4 @@
+'use client';
 import { useDisclosure } from '@nextui-org/react';
 import { useReducer, Reducer, useCallback } from 'react';
 

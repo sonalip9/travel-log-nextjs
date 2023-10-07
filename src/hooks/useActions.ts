@@ -1,3 +1,4 @@
+'use client';
 import { AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 

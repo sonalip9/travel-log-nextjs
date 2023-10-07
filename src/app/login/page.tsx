@@ -1,3 +1,4 @@
+'use client';
 import { ButtonGroup } from '@nextui-org/react';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';

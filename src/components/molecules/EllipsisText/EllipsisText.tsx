@@ -1,3 +1,4 @@
+'use client';
 import { useLayoutEffect, useMemo, useRef } from 'react';
 
 import { Container, ContainerProps } from '@components/Container';
