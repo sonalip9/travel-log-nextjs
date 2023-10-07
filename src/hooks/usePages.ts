@@ -1,6 +1,5 @@
 'use client';
-import { useRouter } from 'next/router';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 import { useTravelLogActions } from './useActions';
 import { useModal } from './useModal';
@@ -10,18 +9,9 @@ import { Page, CreatePagePayload } from '@defs/pages';
 import { getJournalById, postCreatePage, patchUpdatePage, deletePage } from '@service/api';
 import { CreateProps, UpdateProps } from '@templates/Pages';
 
-export const usePages = () => {
-  const router = useRouter();
-
+export const usePages = (journalId?: string) => {
   const [journalDetails, setJournalDetails] =
     useState<Pick<UserJournal, 'title' | 'description'>>();
-
-  const [journalId, setJournalId] = useState<string | undefined>(router.query.journalId as string);
-  useEffect(() => {
-    if (router.isReady && router.query.journalId && router.query.journalId !== journalId) {
-      setJournalId(router.query.journalId as string);
-    }
-  }, [journalId, router.isReady, router.query.journalId]);
 
   const fetchJournal = useCallback(() => {
     if (!journalId) {
@@ -35,7 +25,7 @@ export const usePages = () => {
         title: res.data?.title,
         description: res.data?.description,
       });
-      setJournalId(res.data?.journalId);
+      // SetJournalId(res.data?.journalId);
       return res;
     });
   }, [journalId]);
