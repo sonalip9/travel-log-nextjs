@@ -1,3 +1,5 @@
+'use client';
+import { NextPage } from 'next';
 import Head from 'next/head';
 
 import { Button } from '@components/Button';
@@ -9,7 +11,7 @@ import { NavBar } from '@templates/NavBar';
 import { Pages } from '@templates/Pages';
 import { EditPageModal } from '@templates/Pages';
 
-export default function PagePages() {
+const PagePages: NextPage<{ params: { journalId: string } }> = ({ params }) => {
   const { data } = useLoginRedirect();
 
   const {
@@ -21,7 +23,7 @@ export default function PagePages() {
     pageLoading,
     visible,
     pages,
-  } = usePages();
+  } = usePages(params.journalId);
 
   if (!data || pageLoading) return null;
 
@@ -74,4 +76,6 @@ export default function PagePages() {
       </main>
     </>
   );
-}
+};
+
+export default PagePages;
