@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 export const useLoginRedirect = () => {
@@ -6,7 +6,7 @@ export const useLoginRedirect = () => {
   const session = useSession({
     required: true,
     onUnauthenticated() {
-      router.replace('/login').catch((err) => console.error('Redirected:', err));
+      router.replace('/login');
     },
   });
 
