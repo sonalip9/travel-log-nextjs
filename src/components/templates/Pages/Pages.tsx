@@ -1,3 +1,4 @@
+'use client';
 import { Container } from '@components/Container';
 import { EllipsisText } from '@components/EllipsisText';
 import { Image } from '@components/Image';
