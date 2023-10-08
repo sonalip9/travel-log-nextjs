@@ -25,7 +25,6 @@ export const usePages = (journalId?: string) => {
         title: res.data?.title,
         description: res.data?.description,
       });
-      // SetJournalId(res.data?.journalId);
       return res;
     });
   }, [journalId]);
