@@ -16,15 +16,15 @@ authAPI.interceptors.request.use(async (conf) => {
   try {
     const session = await getSession();
 
-    if (session?.accessToken) {
-      conf.headers.Authorization = `Bearer ${session?.accessToken}`;
-    } else if (session?.user) {
+    if (!session || !session?.accessToken) {
       await signOut();
       return Promise.reject(Error('Unauthorized'));
     }
+    conf.headers.Authorization = `Bearer ${session.accessToken}`;
 
     return Promise.resolve(conf);
   } catch (err) {
+    console.error(err);
     return Promise.reject(Error('Error in request interceptors', { cause: err }));
   }
 });
@@ -34,21 +34,10 @@ authAPI.interceptors.response.use(
   async (error) => {
     try {
       if (error instanceof AxiosError && error.config && error.response?.status === 401) {
-        if (error.config.url?.endsWith('refresh')) {
-          return Promise.reject(error);
-        }
-        const res = await refreshAuth();
-
-        if (res.status === 200) {
-          await axios.get('/api/auth/session?update', {
-            headers: { access_token: res.data.accessToken, expires_in: res.data.expiresIn },
-          });
-
-          error.config.headers.Authorization = `Bearer ${res.data.accessToken}`;
-
-          return authAPI.request(error.config);
-        }
+        await signOut();
+        return Promise.reject(error);
       }
+      return Promise.reject(error);
     } catch (err) {
       return Promise.reject(err);
     }
@@ -60,7 +49,8 @@ export const signIn = (credentials: LoginPayload) => api.post<UserRes>('/auth/lo
 
 export const signUp = (credentials: LoginPayload) => api.post<UserRes>('/auth/signup', credentials);
 
-const refreshAuth = async () => authAPI.get<UserRes>('auth/refresh');
+export const refreshAuth = async (token: string) =>
+  api.get<UserRes>('auth/refresh', { headers: { Authorization: `Bearer ${token}` } });
 
 //  ======== Journals API ========
 export const getAllJournals = async () => authAPI.get<JournalsListRes>('/journals/all');
