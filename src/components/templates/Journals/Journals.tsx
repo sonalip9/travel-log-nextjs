@@ -1,5 +1,5 @@
 'use client';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
 import { Card } from '@components/Card';
@@ -15,9 +15,10 @@ export type JournalsProps = {
   onDelete: () => void;
 };
 function Journals({ journal, onUpdate, onDelete }: JournalsProps) {
+  const router = useRouter();
   const onClick = useCallback(() => {
-    redirect(`/${journal.journalId}`);
-  }, [journal.journalId]);
+    router.push(`/${journal.journalId}`);
+  }, [journal.journalId, router]);
 
   const [isActionVisible, setIsActionVisible] = useState(false);
 
